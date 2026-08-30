@@ -205,7 +205,12 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 .btn--ghost:hover { color: var(--paper); border-color: var(--ink); }
 .btn--ghost:hover::before { transform: scale(1); opacity: 1; }
 .btn--wide { width: 100%; }
-.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+/* disabled reads as its own state rather than as a faded solid: the enabled
+   button is the only filled dark pill in the drawer */
+.btn:disabled { cursor: not-allowed; color: var(--ink-52); border-color: var(--ink-20); }
+.btn:disabled::before { background: transparent; }
+.btn:disabled:hover { color: var(--ink-52); border-color: var(--ink-20); }
+.btn:disabled:hover::before { background: transparent; transform: scale(0.4); opacity: 0; }
 .btn--light.btn--solid { color: var(--green); }
 .btn--light.btn--solid::before { background: var(--lume); }
 .btn--light.btn--solid:hover::before { background: var(--orange-2); }
@@ -542,7 +547,7 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
   gap: clamp(30px, 4vw, 70px);
-  align-items: end;
+  align-items: center;
   margin-top: clamp(36px, 4vw, 62px);
 }
 .ben__h { font-size: clamp(28px, 3.2vw, 48px); max-width: 20ch; }
