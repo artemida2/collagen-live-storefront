@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { BENEFITS } from '../data/content'
+import { asset } from '../lib/asset'
 
 export default function Benefits() {
   return (
@@ -24,7 +25,7 @@ export default function Benefits() {
             С возрастом уровень коллагена падает сам. Курс возвращает то, что организм перестал производить
           </motion.h2>
           <figure className="ben__fig">
-            <img src="/media/hand.jpg" alt="Банка Collagen Live в руках" width={960} height={1280} loading="lazy" />
+            <img src={asset('/media/hand.jpg')} alt="Банка Collagen Live в руках" width={960} height={1280} loading="lazy" />
           </figure>
         </div>
 

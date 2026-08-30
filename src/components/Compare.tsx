@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { usePlayInView, useStills } from '../lib/hooks'
+import { asset } from '../lib/asset'
 
 const DRY = [
   ['01', 'Сырьё сушат при температуре ниже 40 °C'],
@@ -52,13 +53,13 @@ export default function Compare({ reduced }: { reduced: boolean }) {
         <article className="chalf chalf--dry">
           <div className="chalf__media chalf__media--dry">
             {stills ? (
-              <img className="chalf__v" src="/media/poster-dry.jpg" alt="" width={1280} height={720} loading="lazy" />
+              <img className="chalf__v" src={asset('/media/poster-dry.jpg')} alt="" width={1280} height={720} loading="lazy" />
             ) : (
               <video
                 ref={dry}
                 className="chalf__v"
-                src="/media/dry.mp4"
-                poster="/media/poster-dry.jpg"
+                src={asset('/media/dry.mp4')}
+                poster={asset('/media/poster-dry.jpg')}
                 muted
                 playsInline
                 loop

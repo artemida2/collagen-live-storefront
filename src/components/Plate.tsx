@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset'
 /**
  * One full-bleed plate of the client's own photography, quiet and large,
  * placed as the breath before the catalogue. The named craft bar shows the
@@ -9,7 +10,7 @@ export default function Plate() {
     <section className="plate" aria-label="Collagen Live Wellness">
       <figure className="plate__fig">
         <img
-          src="/media/plate-wide.jpg"
+          src={asset('/media/plate-wide.jpg')}
           alt="Банки Collagen Live Wellness на кухонном столе с гранатом и апельсином"
           width={2400}
           height={1080}

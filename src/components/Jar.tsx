@@ -1,5 +1,6 @@
 import { useId } from 'react'
 import { usePlayInView, useStills } from '../lib/hooks'
+import { asset } from '../lib/asset'
 
 /**
  * The jar is a hole, not a photograph.
@@ -34,13 +35,13 @@ export default function Jar({ reduced, tone = 'paper' }: { reduced: boolean; ton
   return (
     <div className={`jar${onGreen ? ' jar--green' : ''}`}>
       {stills ? (
-        <img className="jar__v" src="/media/poster-jar.jpg" alt="" width={1080} height={720} loading="lazy" />
+        <img className="jar__v" src={asset('/media/poster-jar.jpg')} alt="" width={1080} height={720} loading="lazy" />
       ) : (
         <video
           ref={v}
           className="jar__v"
-          src="/media/jar.mp4"
-          poster="/media/poster-jar.jpg"
+          src={asset('/media/jar.mp4')}
+          poster={asset('/media/poster-jar.jpg')}
           muted
           playsInline
           loop

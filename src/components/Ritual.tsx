@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import { asset } from '../lib/asset'
 
 const STEPS: [string, string, string][] = [
   ['01', 'Ложка в день', 'Желе едят прямо из банки или растворяют в воде, соке, смузи — вкус этому не мешает.'],
@@ -27,7 +28,7 @@ export default function Ritual() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             <img
-              src="/media/kitchen.jpg"
+              src={asset('/media/kitchen.jpg')}
               alt="Банка Collagen Live на кухонном столе за завтраком"
               width={1600}
               height={1000}

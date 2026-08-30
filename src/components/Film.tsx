@@ -1,6 +1,7 @@
 import { motion, useTransform, type MotionValue } from 'motion/react'
 import { useEffect, useRef } from 'react'
 import { useStills } from '../lib/hooks'
+import { asset } from '../lib/asset'
 
 /**
  * The live film, fixed behind the whole page. Sections above it are opaque;
@@ -60,14 +61,14 @@ export default function Film({
   return (
     <div className="film" aria-hidden="true">
       {stills ? (
-        <img className="film__v" src="/media/poster-live.jpg" alt="" width={1280} height={720} />
+        <img className="film__v" src={asset('/media/poster-live.jpg')} alt="" width={1280} height={720} />
       ) : (
       <motion.video
         ref={ref}
         className="film__v"
         style={reduced ? undefined : { scale }}
-        src="/media/live.mp4"
-        poster="/media/poster-live.jpg"
+        src={asset('/media/live.mp4')}
+        poster={asset('/media/poster-live.jpg')}
         muted
         playsInline
         loop

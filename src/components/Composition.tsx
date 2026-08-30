@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { AMINO, CERTS, ELEMENTS, FREE_OF, TYPES } from '../data/content'
+import { asset } from '../lib/asset'
 
 const reveal = {
   initial: { y: 24, opacity: 0 },
@@ -61,7 +62,7 @@ export default function Composition() {
 
           <div className="comp__aside">
             <figure className="comp__fig">
-              <img src="/media/glass.jpg" alt="Банка Collagen Live рядом со стаканом воды" width={1040} height={1380} />
+              <img src={asset('/media/glass.jpg')} alt="Банка Collagen Live рядом со стаканом воды" width={1040} height={1380} />
             </figure>
             <div className="comp__vc">
               <span className="mono">Витамин C</span>
