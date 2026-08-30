@@ -22,6 +22,10 @@
   --green: #17301f;
   --green-3: #2b5636;
 
+  /* The one dark that is not botanical: the ground behind the dried-strawberry
+     film, and the scrim its label and numeral sit on. */
+  --stone: #17140f;
+
   /* Ink on green */
   --lume: #f2eee5;
   --lume-72: rgba(242, 238, 229, 0.72); /* 7.1:1 on green */

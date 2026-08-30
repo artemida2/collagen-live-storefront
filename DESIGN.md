@@ -13,6 +13,7 @@ colors:
   ink-20: "rgba(28, 27, 23, 0.2)"
   green: "#17301f"
   green-3: "#2b5636"
+  stone: "#17140f"
   lume: "#f2eee5"
   lume-72: "rgba(242, 238, 229, 0.72)"
   lume-60: "rgba(242, 238, 229, 0.6)"
@@ -27,6 +28,36 @@ colors:
   rule-lume: "rgba(242, 238, 229, 0.18)"
   rule-lume-soft: "rgba(242, 238, 229, 0.09)"
 typography:
+  # The enumerated ramp the detector checks literal font-sizes against.
+  # Consolidated from 27 drifting values; see "Size ramp" below for what each
+  # step carries. svg-label and svg-meta are SVG user units inside the jar's
+  # 320-wide viewBox, not CSS pixels — they scale with the artwork.
+  scale:
+    micro: "9.5px"
+    mono: "10.5px"
+    tiny: "12px"
+    small: "13.5px"
+    ui: "14.5px"
+    body: "15px"
+    base: "16px"
+    lede: "17px"
+    card-title: "19px"
+    label: "21px"
+    heading: "24px"
+    heading-lg: "26px"
+    section-min: "28px"
+    total: "30px"
+    display-sm: "32px"
+    display-md: "38px"
+    count: "40px"
+    display-lg: "46px"
+    mark: "46px"
+    display-xl: "54px"
+    display-2xl: "64px"
+    stat: "72px"
+    hero: "96px"
+    svg-label: "8.5px"
+    svg-meta: "6.5px"
   display-hero:
     fontFamily: "Spectral, Georgia, 'Times New Roman', serif"
     fontSize: "clamp(48px, 6.1vw, 96px)"
@@ -275,9 +306,15 @@ emphasis in prose (that is `strong`), and do not use it decoratively.
 
 ### Size ramp
 
-Every literal `font-size` in CSS sits on this ramp. It was consolidated from 27 drifting values —
-13px next to 13.5px next to 13.8px, 14px next to 14.2px — that were accidents of authoring rather
-than decisions. Fluid `clamp()` display sizes are separate and are listed above.
+Two ramps, both enumerated in the frontmatter `typography.scale` so the detector can check literal
+values against them.
+
+**Fixed sizes** were consolidated from 27 drifting values — 13px next to 13.5px next to 13.8px, 14px
+next to 14.2px — that were accidents of authoring rather than decisions.
+
+**Fluid `clamp()` endpoints** had the same drift (22 distinct values) and were snapped to a 12-step
+display ramp: 15 · 17 · 19 · 24 · 28 · 32 · 38 · 46 · 54 · 64 · 72 · 96. Only the endpoints are on
+the ramp; the `vw` term between them stays free.
 
 | px | used for |
 |---|---|
