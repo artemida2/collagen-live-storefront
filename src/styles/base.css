@@ -42,7 +42,7 @@ a { color: inherit; text-decoration: none; }
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
   line-height: 1.45;
-  color: var(--ink-52);
+  color: var(--ink-64);
 }
 .num { font-variant-numeric: tabular-nums; }
 
@@ -63,7 +63,7 @@ a { color: inherit; text-decoration: none; }
 .prose strong { font-weight: 700; color: var(--ink); }
 .on-green .prose { color: var(--lume-72); }
 .on-green .prose strong { color: var(--lume); }
-.on-green .mono { color: var(--lume-46); }
+.on-green .mono { color: var(--lume-60); }
 
 .shell { width: 100%; max-width: var(--page); margin: 0 auto; padding-inline: var(--gut); }
 

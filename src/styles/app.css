@@ -207,9 +207,9 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 .btn--wide { width: 100%; }
 /* disabled reads as its own state rather than as a faded solid: the enabled
    button is the only filled dark pill in the drawer */
-.btn:disabled { cursor: not-allowed; color: var(--ink-52); border-color: var(--ink-20); }
+.btn:disabled { cursor: not-allowed; color: var(--ink-64); border-color: var(--ink-20); }
 .btn:disabled::before { background: transparent; }
-.btn:disabled:hover { color: var(--ink-52); border-color: var(--ink-20); }
+.btn:disabled:hover { color: var(--ink-64); border-color: var(--ink-20); }
 .btn:disabled:hover::before { background: transparent; transform: scale(0.4); opacity: 0; }
 .btn--light.btn--solid { color: var(--green); }
 .btn--light.btn--solid::before { background: var(--lume); }
@@ -292,7 +292,7 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
   padding-left: clamp(0px, 1.4vw, 20px);
 }
 .hero__price-p { font-family: var(--f-display); font-size: 26px; font-weight: 400; line-height: 1; }
-.hero__price-was { font-family: var(--f-mono); font-size: 12px; color: var(--ink-38); margin-right: 4px; }
+.hero__price-was { font-family: var(--f-mono); font-size: 12px; color: var(--ink-58); margin-right: 4px; }
 .hero__price .mono { font-size: 9.5px; }
 
 /* The glass is a hole in a plate the colour of its section, so what fills the
@@ -420,7 +420,7 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
   line-height: 1.5;
   color: var(--ink-70);
 }
-.chalf__n { color: var(--ink-38); }
+.chalf__n { color: var(--ink-58); }
 .chalf__n--ok { color: var(--orange); }
 .chalf__verdict { font-size: 15.5px; line-height: 1.6; color: var(--ink); max-width: 44ch; }
 .chalf__verdict strong { font-weight: 700; }
@@ -448,7 +448,7 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 .tech__fig { margin: 0; max-width: 460px; margin-inline: auto; }
 /* no frame on the green: the jar should read as a hole in the page */
 .jar--green { border: 0; }
-.tech__fig figcaption { margin-top: 12px; font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lume-46); }
+.tech__fig figcaption { margin-top: 12px; font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lume-60); }
 
 .tech__stats {
   display: grid;
@@ -605,7 +605,7 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 }
 .shop__tab > span:first-child { font-size: 14.5px; font-weight: 600; }
 .shop__tab .mono { font-size: 9px; }
-.shop__tab:hover { border-color: var(--ink-38); }
+.shop__tab:hover { border-color: var(--ink-58); }
 .shop__tab.is-on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .shop__tab.is-on .mono { color: rgba(247, 243, 236, 0.6); }
 
@@ -664,7 +664,7 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 }
 .card__price { display: grid; gap: 2px; }
 .card__p { font-family: var(--f-display); font-size: 25px; font-weight: 400; line-height: 1.1; }
-.card__was { color: var(--ink-38); font-size: 13px; font-family: var(--f-mono); }
+.card__was { color: var(--ink-58); font-size: 13px; font-family: var(--f-mono); }
 .card__course { font-size: 9px; }
 
 .add {
@@ -868,7 +868,7 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 .dline__b .mono { font-size: 9px; }
 .dline__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
 .dline__p { font-family: var(--f-display); font-size: 18px; }
-.dline__x { align-self: start; width: 22px; height: 22px; display: grid; place-content: center; color: var(--ink-38); }
+.dline__x { align-self: start; width: 22px; height: 22px; display: grid; place-content: center; color: var(--ink-58); }
 .dline__x:hover { color: var(--cherry); }
 .dline__x svg { width: 10px; height: 10px; }
 

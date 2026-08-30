@@ -14,20 +14,18 @@
   /* Ink */
   --ink: #1c1b17;
   --ink-70: rgba(28, 27, 23, 0.7); /* 6.0:1 on paper */
-  --ink-52: rgba(28, 27, 23, 0.64); /* 4.96:1 — every mono label and caption */
-  --ink-38: rgba(28, 27, 23, 0.58); /* 4.11:1 — struck prices, non-essential meta */
+  --ink-64: rgba(28, 27, 23, 0.64); /* 4.96:1 — every mono label and caption */
+  --ink-58: rgba(28, 27, 23, 0.58); /* 4.11:1 — struck prices, non-essential meta */
   --ink-20: rgba(28, 27, 23, 0.2); /* rules and borders only, never text */
 
   /* Botanical ground — whole sections, not accents */
   --green: #17301f;
-  --green-2: #1f4028;
   --green-3: #2b5636;
 
   /* Ink on green */
   --lume: #f2eee5;
   --lume-72: rgba(242, 238, 229, 0.72); /* 7.1:1 on green */
-  --lume-46: rgba(242, 238, 229, 0.6); /* 5.4:1 — mono sublabels on green */
-  --lume-22: rgba(242, 238, 229, 0.22); /* rules only, never text */
+  --lume-60: rgba(242, 238, 229, 0.6); /* 5.4:1 — mono sublabels on green */
 
   /* Signal — straight out of the film */
   --orange: #e2701b;
@@ -55,6 +53,8 @@
   /* Motion */
   --ease: cubic-bezier(0.22, 0.61, 0.24, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --t-fast: 0.22s;
-  --t-mid: 0.48s;
 }
+
+/* Token names carry their own alpha so a future reader cannot mistake one for
+   another: --ink-64 is 0.64 and measures 4.96:1 on paper. Any new text-bearing
+   alpha gets measured against its real ground and its ratio written beside it. */

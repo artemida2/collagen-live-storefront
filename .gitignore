@@ -1,8 +1,11 @@
 node_modules/
+node_modules/.tmp/
 dist/
-.impeccable/shots/
 *.local
 .DS_Store
 Thumbs.db
-node_modules/.tmp/
-.impeccable/
+
+# .impeccable holds a scratch shot set and a hook cache; the design record
+# itself belongs in the repo.
+.impeccable/*
+!.impeccable/design.json

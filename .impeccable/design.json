@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-30T00:00:00.000Z",
+  "title": "Design System: Collagen Live — Distributor Surface",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "#f7f3ec",
+        "tonalRamp": ["#221f1a", "#3b362d", "#565043", "#746c5c", "#948b78", "#b6ac97", "#d8ceb9", "#f7f3ec"]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Second Paper",
+        "canonical": "#f0eae0",
+        "tonalRamp": ["#211d17", "#39332a", "#534b3f", "#706756", "#8f8471", "#b1a48e", "#d2c6ad", "#f0eae0"]
+      },
+      "paper-3": {
+        "role": "neutral",
+        "displayName": "Third Paper",
+        "canonical": "#e6ddce",
+        "tonalRamp": ["#201c15", "#373126", "#514839", "#6d624e", "#8c7e65", "#ac9c7e", "#cbbba6", "#e6ddce"]
+      },
+      "white": { "role": "neutral", "displayName": "Field White", "canonical": "#ffffff", "tonalRamp": ["#262626", "#3f3f3f", "#5a5a5a", "#787878", "#979797", "#b8b8b8", "#dadada", "#ffffff"] },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Dry Ink",
+        "canonical": "#1c1b17",
+        "tonalRamp": ["#1c1b17", "#343128", "#4d4839", "#68614c", "#857c62", "#a29879", "#c1b596", "#e0d4b6"]
+      },
+      "ink-70": { "role": "neutral", "displayName": "Ink 70 (prose)", "canonical": "rgba(28, 27, 23, 0.7)", "tonalRamp": ["#1c1b17", "#3a372f", "#585348", "#787162", "#98907e", "#b9b09c", "#dbd1bb", "#f7f3ec"] },
+      "ink-64": { "role": "neutral", "displayName": "Ink 52 (labels)", "canonical": "rgba(28, 27, 23, 0.64)", "tonalRamp": ["#1c1b17", "#3a372f", "#585348", "#787162", "#98907e", "#b9b09c", "#dbd1bb", "#f7f3ec"] },
+      "ink-58": { "role": "neutral", "displayName": "Ink 38 (struck meta)", "canonical": "rgba(28, 27, 23, 0.58)", "tonalRamp": ["#1c1b17", "#3a372f", "#585348", "#787162", "#98907e", "#b9b09c", "#dbd1bb", "#f7f3ec"] },
+      "ink-20": { "role": "neutral", "displayName": "Ink 20 (rules only)", "canonical": "rgba(28, 27, 23, 0.2)", "tonalRamp": ["#1c1b17", "#3a372f", "#585348", "#787162", "#98907e", "#b9b09c", "#dbd1bb", "#f7f3ec"] },
+      "green": {
+        "role": "secondary",
+        "displayName": "Botanical Green",
+        "canonical": "#17301f",
+        "tonalRamp": ["#0b170f", "#17301f", "#22492f", "#2f6340", "#3d7e52", "#5aa06f", "#8bc39b", "#c2e2cc"]
+      },
+      "green-3": { "role": "secondary", "displayName": "Field Green", "canonical": "#2b5636", "tonalRamp": ["#0d1a11", "#162c1c", "#203f28", "#2b5636", "#3a7148", "#529160", "#83b78f", "#bcdcc4"] },
+      "lume": {
+        "role": "neutral",
+        "displayName": "Lume",
+        "canonical": "#f2eee5",
+        "tonalRamp": ["#221f19", "#3a352c", "#544e41", "#716957", "#908672", "#b2a68f", "#d3c8ae", "#f2eee5"]
+      },
+      "lume-72": { "role": "neutral", "displayName": "Lume 72 (prose on green)", "canonical": "rgba(242, 238, 229, 0.72)", "tonalRamp": ["#17301f", "#2b4433", "#405747", "#566c5c", "#6f8272", "#8b9a8d", "#aeb8ae", "#f2eee5"] },
+      "lume-60": { "role": "neutral", "displayName": "Lume 46 (labels on green)", "canonical": "rgba(242, 238, 229, 0.6)", "tonalRamp": ["#17301f", "#2b4433", "#405747", "#566c5c", "#6f8272", "#8b9a8d", "#aeb8ae", "#f2eee5"] },
+      "orange": {
+        "role": "primary",
+        "displayName": "Film Orange",
+        "canonical": "#e2701b",
+        "tonalRamp": ["#3a1c06", "#5c2d0a", "#803f0f", "#a55215", "#c9631a", "#e2701b", "#f0913a", "#f8c48e"]
+      },
+      "orange-2": { "role": "primary", "displayName": "Lifted Orange", "canonical": "#f0913a", "tonalRamp": ["#3d2409", "#5f380e", "#834d13", "#a86318", "#cd7a1e", "#e88b2f", "#f0913a", "#f9cb9c"] },
+      "cherry": { "role": "tertiary", "displayName": "Cherry", "canonical": "#b4222f", "tonalRamp": ["#2e080c", "#4c0e15", "#6c151f", "#8d1c29", "#b4222f", "#d34150", "#e6828b", "#f5c3c8"] },
+      "gold": { "role": "tertiary", "displayName": "Gold", "canonical": "#c08a2e", "tonalRamp": ["#302108", "#4e360d", "#6d4c13", "#8d6219", "#ad7920", "#c08a2e", "#d9ac63", "#efd7ac"] },
+      "olive": { "role": "tertiary", "displayName": "Olive", "canonical": "#7d8f3a", "tonalRamp": ["#1f240d", "#333b16", "#48541f", "#5f6d28", "#767f31", "#7d8f3a", "#a4b465", "#cfdaa5"] },
+      "plum": { "role": "tertiary", "displayName": "Plum", "canonical": "#8e1f38", "tonalRamp": ["#25070f", "#3e0c19", "#571224", "#711930", "#8e1f38", "#b23a55", "#d17e90", "#ecc0c9"] },
+      "rule": { "role": "neutral", "displayName": "Hairline Rule", "canonical": "rgba(28, 27, 23, 0.14)", "tonalRamp": ["#1c1b17", "#3a372f", "#585348", "#787162", "#98907e", "#b9b09c", "#dbd1bb", "#f7f3ec"] },
+      "rule-soft": { "role": "neutral", "displayName": "Soft Rule", "canonical": "rgba(28, 27, 23, 0.08)", "tonalRamp": ["#1c1b17", "#3a372f", "#585348", "#787162", "#98907e", "#b9b09c", "#dbd1bb", "#f7f3ec"] },
+      "rule-lume": { "role": "neutral", "displayName": "Rule on Green", "canonical": "rgba(242, 238, 229, 0.18)", "tonalRamp": ["#17301f", "#2b4433", "#405747", "#566c5c", "#6f8272", "#8b9a8d", "#aeb8ae", "#f2eee5"] },
+      "rule-lume-soft": { "role": "neutral", "displayName": "Soft Rule on Green", "canonical": "rgba(242, 238, 229, 0.09)", "tonalRamp": ["#17301f", "#2b4433", "#405747", "#566c5c", "#6f8272", "#8b9a8d", "#aeb8ae", "#f2eee5"] }
+    },
+    "typographyMeta": {
+      "display-hero": { "displayName": "Display Hero", "purpose": "The hero headline only, one word-block per clipped line; its emphasis line is Spectral 600 italic in Film Orange." },
+      "display-section": { "displayName": "Display Section", "purpose": "Every section headline via .disp; measure capped at 12-24ch on desktop, uncapped below 900px." },
+      "display-numeral": { "displayName": "Display Numeral", "purpose": "Every number that is an argument: facts, stats, temperatures, roman type numerals, prices, cart total. Always tabular." },
+      "title": { "displayName": "Title", "purpose": "Card names, benefit and delivery point titles, ritual steps, FAQ questions." },
+      "body": { "displayName": "Body", "purpose": ".prose at 48ch, Ink 70 on paper and Lume 72 on green; strong goes to 700 and full ink." },
+      "lede": { "displayName": "Lede", "purpose": "The hero paragraph only, one step larger than body at 54ch." },
+      "label": { "displayName": "Label", "purpose": ".mono — section names, captions, units, meta rows, legal notes. Uppercase, tabular, 0.1em." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(0.22, 0.61, 0.24, 1)", "purpose": "Default easing for colour and border state transitions (0.2-0.38s)." },
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Every entrance, fill scale, underline sweep, FAQ open, and every Framer reveal." },
+      { "name": "reveal-heading", "value": "opacity 0->1, y 22-26px->0, duration 0.8-1s, ease-out, viewport once, amount 0.3-0.5", "purpose": "The single per-section heading reveal (plus its immediate lede where the build already does it). Nothing else reveals." },
+      { "name": "hero-word-rise", "value": "y 110%->0%, duration 1s, stagger 0.07s, ease-out, inside overflow:hidden", "purpose": "The hero headline's clipped word-rise; the only pure-transform reveal on the page." },
+      { "name": "card-swap", "value": "opacity/y in 18px, out -10px, duration 0.5s, ease-out, AnimatePresence mode=popLayout initial=false", "purpose": "Shop card tab-switch feedback only; never plays on first paint." },
+      { "name": "drawer-slide", "value": "x 100%->0", "purpose": "Cart drawer entrance behind a rgba(23,27,22,0.42) veil." },
+      { "name": "grain", "value": "fixed noise.svg, 180px tile, opacity 0.2, z-index 40, plain alpha", "purpose": "Page-wide film grain. Never mix-blend-mode." },
+      { "name": "warm-wash", "value": "radial-gradient(130% 100% at 50% 40%, rgba(226,112,27,0.1), rgba(28,27,23,0.16) 84%)", "purpose": "Warm scrim over the fixed film. Plain alpha." },
+      { "name": "reduced-motion", "value": "@media (prefers-reduced-motion: reduce) { animation/transition-duration: 0.001ms }", "purpose": "Global kill switch; the film also freezes at scale(1.1) and every video pauses." }
+    ],
+    "breakpoints": [
+      { "name": "laptop", "value": "1180px" },
+      { "name": "tablet", "value": "900px" },
+      { "name": "phone", "value": "760px" },
+      { "name": "small-phone", "value": "460px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-solid",
+      "description": "The one filled dark pill; its fill layer transitions to Film Orange on hover.",
+      "html": "<button class=\"ds-btn ds-btn-solid\"><span>Выбрать вкус</span></button>",
+      "css": ".ds-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 26px; border-radius: 999px; border: 1px solid transparent; font-family: var(--f-text, 'Manrope', system-ui, sans-serif); font-size: 14.5px; font-weight: 600; letter-spacing: 0.005em; overflow: hidden; isolation: isolate; cursor: pointer; transition: color 0.34s cubic-bezier(0.22,0.61,0.24,1), border-color 0.34s cubic-bezier(0.22,0.61,0.24,1); } .ds-btn span { position: relative; z-index: 1; } .ds-btn::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #1c1b17; transform: scale(1); transition: transform 0.44s cubic-bezier(0.16,1,0.3,1), background 0.3s cubic-bezier(0.22,0.61,0.24,1); } .ds-btn-solid { color: #f7f3ec; } .ds-btn-solid:hover::before { background: #e2701b; } .ds-btn-solid:focus-visible { outline: 2px solid #e2701b; outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Hairline pill whose ink fill scales up from 0.4 on hover, inverting the label to paper.",
+      "html": "<button class=\"ds-btn ds-btn-ghost\"><span>Чем отличается от порошка</span></button>",
+      "css": ".ds-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 26px; border-radius: 999px; border: 1px solid transparent; font-family: var(--f-text, 'Manrope', system-ui, sans-serif); font-size: 14.5px; font-weight: 600; overflow: hidden; isolation: isolate; cursor: pointer; transition: color 0.34s cubic-bezier(0.22,0.61,0.24,1), border-color 0.34s cubic-bezier(0.22,0.61,0.24,1); } .ds-btn span { position: relative; z-index: 1; } .ds-btn::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #1c1b17; transition: transform 0.44s cubic-bezier(0.16,1,0.3,1), opacity 0.44s cubic-bezier(0.16,1,0.3,1); } .ds-btn-ghost { color: #1c1b17; border-color: rgba(28,27,23,0.2); } .ds-btn-ghost::before { transform: scale(0.4); opacity: 0; } .ds-btn-ghost:hover { color: #f7f3ec; border-color: #1c1b17; } .ds-btn-ghost:hover::before { transform: scale(1); opacity: 1; } .ds-btn-ghost:focus-visible { outline: 2px solid #e2701b; outline-offset: 3px; }"
+    },
+    {
+      "name": "Add to Cart",
+      "kind": "button",
+      "refersTo": "add-to-cart",
+      "description": "Small hairline pill inside a product card; confirms by going botanical green rather than by moving.",
+      "html": "<button class=\"ds-add\"><span>В корзину</span><svg viewBox=\"0 0 14 14\" fill=\"none\" aria-hidden=\"true\"><path d=\"M7 2v10M2 7h10\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/></svg></button>",
+      "css": ".ds-add { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid rgba(28,27,23,0.2); border-radius: 999px; background: none; color: #1c1b17; font-family: var(--f-text, 'Manrope', system-ui, sans-serif); font-size: 13.5px; font-weight: 600; white-space: nowrap; cursor: pointer; transition: background 0.24s cubic-bezier(0.22,0.61,0.24,1), color 0.24s cubic-bezier(0.22,0.61,0.24,1), border-color 0.24s cubic-bezier(0.22,0.61,0.24,1); } .ds-add svg { width: 13px; height: 13px; display: block; } .ds-add:hover { background: #1c1b17; border-color: #1c1b17; color: #f7f3ec; } .ds-add:focus-visible { outline: 2px solid #e2701b; outline-offset: 3px; } .ds-add.is-added { background: #17301f; border-color: #17301f; color: #f2eee5; }"
+    },
+    {
+      "name": "Catalogue Tab",
+      "kind": "chip",
+      "refersTo": "tab",
+      "description": "Two-line tab (label over mono sub-label); selected state is a solid ink block, not an underline.",
+      "html": "<div style=\"display:flex;gap:8px\"><button class=\"ds-tab is-on\" role=\"tab\" aria-selected=\"true\"><span>Банки 0,5 кг</span><span class=\"ds-tab-sub\">курс на 1,5 месяца</span></button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\"><span>Сеты</span><span class=\"ds-tab-sub\">курс от 3 месяцев</span></button></div>",
+      "css": ".ds-tab { display: grid; gap: 2px; justify-items: start; padding: 11px 20px; border: 1px solid rgba(28,27,23,0.2); border-radius: 3px; background: none; color: #1c1b17; font-family: var(--f-text, 'Manrope', system-ui, sans-serif); font-size: 14.5px; font-weight: 600; cursor: pointer; transition: border-color 0.24s cubic-bezier(0.22,0.61,0.24,1), background 0.24s cubic-bezier(0.22,0.61,0.24,1), color 0.24s cubic-bezier(0.22,0.61,0.24,1); } .ds-tab-sub { font-family: var(--f-mono, 'Geist Mono', ui-monospace, monospace); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(28,27,23,0.64); } .ds-tab:hover { border-color: rgba(28,27,23,0.58); } .ds-tab:focus-visible { outline: 2px solid #e2701b; outline-offset: 3px; } .ds-tab.is-on { background: #1c1b17; border-color: #1c1b17; color: #f7f3ec; } .ds-tab.is-on .ds-tab-sub { color: rgba(247,243,236,0.6); }"
+    },
+    {
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": "card-product",
+      "description": "Unenclosed card: 3px-radius media with a 3px flavour-tone strip, mono meta row, hairline above the price row.",
+      "html": "<li class=\"ds-card\"><div class=\"ds-card-media\"><img src=\"/media/jar-cherry.jpg\" alt=\"\" width=\"700\" height=\"700\"><span class=\"ds-card-hit\">Хит</span><span class=\"ds-card-tone\" style=\"background:#b4222f\"></span></div><div class=\"ds-card-b\"><div class=\"ds-card-meta\"><span>Вишня</span><span>0,5 кг</span></div><h3 class=\"ds-card-t\">Collagen Live Wellness</h3><p class=\"ds-card-note\">Желе, а не порошок. Едят ложкой или растворяют в воде.</p><div class=\"ds-card-foot\"><div class=\"ds-card-price\"><span class=\"ds-card-p\">2 200 ₽</span><s class=\"ds-card-was\">3 000 ₽</s><span class=\"ds-card-course\">курс на 1,5 месяца</span></div></div></div></li>",
+      "css": ".ds-card { list-style: none; display: grid; grid-template-rows: auto 1fr; color: #1c1b17; font-family: var(--f-text, 'Manrope', system-ui, sans-serif); } .ds-card-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 3px; background: #f0eae0; } .ds-card-media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16,1,0.3,1); } .ds-card:hover .ds-card-media img { transform: scale(1.045); } .ds-card-hit { position: absolute; left: 12px; top: 12px; padding: 5px 10px; border-radius: 999px; background: #e2701b; color: #fff; font-family: var(--f-mono, 'Geist Mono', ui-monospace, monospace); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; } .ds-card-tone { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; } .ds-card-b { display: grid; grid-template-rows: auto auto 1fr auto; gap: 8px; padding-top: 16px; } .ds-card-meta { display: flex; justify-content: space-between; gap: 12px; font-family: var(--f-mono, 'Geist Mono', ui-monospace, monospace); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(28,27,23,0.64); } .ds-card-t { margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.014em; line-height: 1.24; } .ds-card-note { margin: 0; font-size: 13.5px; line-height: 1.55; color: rgba(28,27,23,0.7); } .ds-card-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; margin-top: 10px; padding-top: 14px; border-top: 1px solid rgba(28,27,23,0.14); } .ds-card-price { display: grid; gap: 2px; } .ds-card-p { font-family: var(--f-display, 'Spectral', Georgia, serif); font-size: 25px; font-weight: 400; line-height: 1.1; font-variant-numeric: tabular-nums; } .ds-card-was { color: rgba(28,27,23,0.58); font-size: 13px; font-family: var(--f-mono, 'Geist Mono', ui-monospace, monospace); } .ds-card-course { font-family: var(--f-mono, 'Geist Mono', ui-monospace, monospace); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(28,27,23,0.64); }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Checkout field: white ground, hairline border going to full ink on focus, mono label above.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-l\">Телефон</span><input type=\"tel\" placeholder=\"+7 900 000-00-00\"></label>",
+      "css": ".ds-field { display: grid; gap: 5px; } .ds-field-l { font-family: var(--f-mono, 'Geist Mono', ui-monospace, monospace); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(28,27,23,0.64); } .ds-field input { width: 100%; padding: 12px 14px; background: #fff; color: #1c1b17; border: 1px solid rgba(28,27,23,0.2); border-radius: 3px; font-family: var(--f-text, 'Manrope', system-ui, sans-serif); font-size: 15px; transition: border-color 0.2s cubic-bezier(0.22,0.61,0.24,1); } .ds-field input::placeholder { color: rgba(28,27,23,0.62); } .ds-field input:focus { border-color: #1c1b17; outline: none; }"
+    },
+    {
+      "name": "Section Head",
+      "kind": "nav",
+      "refersTo": "label",
+      "description": "The page's recurring index: two-digit orange section number, mono section name, mono qualifier right, closed by a hairline.",
+      "html": "<div class=\"ds-sechead\"><div class=\"ds-sechead-id\"><span class=\"ds-sechead-n\">02</span><span>Технология</span></div><span class=\"ds-sechead-q\">Multiferment DDL</span></div>",
+      "css": ".ds-sechead { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding-bottom: 14px; border-bottom: 1px solid rgba(28,27,23,0.14); font-family: var(--f-mono, 'Geist Mono', ui-monospace, monospace); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; font-variant-numeric: tabular-nums; line-height: 1.45; color: rgba(28,27,23,0.64); } .ds-sechead-id { display: flex; gap: 18px; align-items: baseline; } .ds-sechead-n { color: #e2701b; }"
+    },
+    {
+      "name": "Rail Cart Control",
+      "kind": "nav",
+      "refersTo": "button-ghost",
+      "description": "Fixed-rail cart pill with inline SVG glyph, mono label and an orange count pip.",
+      "html": "<button class=\"ds-cart\"><svg viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\"><path d=\"M2.5 3h1.6l1.5 7.4h6.6l1.3-5.2H5.2\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"6.4\" cy=\"13\" r=\"1.1\" fill=\"currentColor\"/><circle cx=\"11.6\" cy=\"13\" r=\"1.1\" fill=\"currentColor\"/></svg><span class=\"ds-cart-l\">Корзина</span><span class=\"ds-cart-n\">2</span></button>",
+      "css": ".ds-cart { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 9px 15px; border: 1px solid rgba(28,27,23,0.2); border-radius: 999px; background: none; color: #1c1b17; cursor: pointer; transition: border-color 0.22s cubic-bezier(0.22,0.61,0.24,1), background 0.22s cubic-bezier(0.22,0.61,0.24,1); } .ds-cart svg { width: 16px; height: 16px; display: block; } .ds-cart-l { font-family: var(--f-mono, 'Geist Mono', ui-monospace, monospace); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: #1c1b17; } .ds-cart-n { min-width: 19px; height: 19px; padding: 0 5px; display: grid; place-content: center; border-radius: 999px; background: #e2701b; color: #fff; font-family: var(--f-mono, 'Geist Mono', ui-monospace, monospace); font-size: 10px; } .ds-cart:hover { border-color: #1c1b17; background: rgba(28,27,23,0.04); } .ds-cart:focus-visible { outline: 2px solid #e2701b; outline-offset: 3px; }"
+    },
+    {
+      "name": "FAQ Row",
+      "kind": "custom",
+      "refersTo": "title",
+      "description": "Hairline-bounded disclosure whose panel animates grid-template-rows 0fr to 1fr; the plus marker's vertical bar rotates flat.",
+      "html": "<div class=\"ds-faq is-open\"><button class=\"ds-faq-q\"><span>Почему банка хранится в холодильнике?</span><span class=\"ds-faq-mark\"></span></button><div class=\"ds-faq-a\"><p>В желе нет консервантов, которые позволяли бы держать его при комнатной температуре.</p></div></div>",
+      "css": ".ds-faq { border-top: 1px solid rgba(28,27,23,0.14); border-bottom: 1px solid rgba(28,27,23,0.14); font-family: var(--f-text, 'Manrope', system-ui, sans-serif); color: #1c1b17; } .ds-faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 19px 0; background: none; border: 0; text-align: left; color: inherit; font: inherit; font-size: 16px; font-weight: 600; letter-spacing: -0.008em; cursor: pointer; transition: color 0.2s cubic-bezier(0.22,0.61,0.24,1); } .ds-faq-q:hover { color: #e2701b; } .ds-faq-q:focus-visible { outline: 2px solid #e2701b; outline-offset: 3px; } .ds-faq-mark { position: relative; flex: none; width: 13px; height: 13px; } .ds-faq-mark::before, .ds-faq-mark::after { content: ''; position: absolute; inset: 50% 0 auto; height: 1px; background: currentColor; transition: transform 0.34s cubic-bezier(0.16,1,0.3,1); } .ds-faq-mark::after { transform: rotate(90deg); } .ds-faq.is-open .ds-faq-mark::after { transform: rotate(0deg); } .ds-faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.44s cubic-bezier(0.16,1,0.3,1); } .ds-faq.is-open .ds-faq-a { grid-template-rows: 1fr; } .ds-faq-a p { overflow: hidden; margin: 0; font-size: 14.5px; line-height: 1.66; color: rgba(28,27,23,0.7); max-width: 62ch; } .ds-faq.is-open .ds-faq-a p { padding-bottom: 20px; }"
+    },
+    {
+      "name": "Free-Form Chip Row",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Hairline pills for the composition's 'free from' list; the affirmative variant tints green.",
+      "html": "<ul class=\"ds-chips\"><li>Без сахара</li><li>Без ГМО</li><li class=\"ds-chip-ok\">Без консервантов</li></ul>",
+      "css": ".ds-chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 0; padding: 0; list-style: none; font-family: var(--f-mono, 'Geist Mono', ui-monospace, monospace); } .ds-chips li { padding: 6px 13px; border: 1px solid rgba(28,27,23,0.2); border-radius: 999px; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(28,27,23,0.7); } .ds-chips .ds-chip-ok { border-color: rgba(23,48,31,0.32); color: #17301f; background: rgba(23,48,31,0.05); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Cold-Room Print Shop",
+    "overview": "This is the wellness-category canon played straight at a craft bar, executed with print-shop materials: warm uncoated paper, dry near-black ink, one deep botanical green that drenches whole sections rather than accenting them, and hairline rules doing every job a card and a shadow would normally do. Nothing floats. There is no elevation anywhere on the page — depth is made entirely by opaque plates stacked over one fixed layer of live film, and by tone changes between paper and green.\n\nThe signature device is the aperture: the page decodes one video, fixed at the very back at z-index 0, and everything above it is an opaque plate. Where the film is meant to be seen, a hole is left in the plate instead of a second video being placed there. The hero and the \"живой\" half of the comparison are those two holes. A third, smaller aperture in the green technology section works by the same grammar but with its own local media: an SVG plate painted the colour of its section with the jar's glass punched out of it, sitting over a jar.mp4. Both cases obey the same rule — what fills the shape is moving picture, not a photograph of the shape.\n\nDensity is editorial rather than promotional: numbered section heads, mono meta labels in the margins, tabular figures, generous vertical bands, and copy set to a real measure (48ch prose, 54ch lede). The page carries no benefit icons, no discount badges, no drop-shadowed cards, and no glyph pictograms. Saturated colour is rationed to the film's own orange and cherry.",
+    "keyCharacteristics": [
+      "One fixed film layer; every other surface is an opaque plate or a hole in one.",
+      "Flat by construction — zero box-shadow on any surface in the build.",
+      "Hairline rules (1px at 8–18% alpha) instead of containers.",
+      "Spectral for display and every number, Manrope for prose, Geist Mono for every label.",
+      "Green sections are grounds, not accents; they switch the whole ink system via .on-green.",
+      "Reveals are one heading (and its immediate lede) per section. Everything else is static."
+    ],
+    "rules": [
+      { "name": "The Measured Alpha Rule", "body": "Every ink and lume level that carries text has a measured contrast ratio in the comment beside it and clears 4.5:1 on its ground — --ink-70 6.0:1, --ink-64 4.96:1, --ink-58 4.11:1 (this one is below 4.5:1 and is therefore restricted to struck prices and non-essential meta that duplicate information available elsewhere), --lume-72 7.1:1, --lume-60 5.4:1, and the drawer's input placeholder 4.67:1. The number in a token's name is legacy and is not its alpha: --ink-64 is 0.64, --ink-58 is 0.58, --lume-60 is 0.6. Change the value, re-measure, and rewrite the comment; never rename to match.", "section": "colors" },
+      { "name": "The Rules-Only Rule", "body": "--ink-20 sets borders, hairline dividers and the drawer's progress track. It never sets text. (--lume-22 is declared for the same purpose on green but is unused in the build — the green rules all resolve to --rule-lume / --rule-lume-soft. Use those.)", "section": "colors" },
+      { "name": "The Sampled-Signal Rule", "body": "Saturated colour on this page comes from the client's film — the citrus orange and the cherry red — plus the botanical green. Do not introduce a hue that is not already in the token file; a new flavour tone is the only admissible exception, and it lives on the 3px card strip.", "section": "colors" },
+      { "name": "The Three-Instrument Rule", "body": "Every text node on the page belongs to exactly one of .disp (Spectral), .prose/default body (Manrope), or .mono (Geist Mono). There is no fourth voice, and no instrument borrows another's job — a heading is never Manrope, a paragraph is never Spectral, and any label, unit or caption is Geist Mono.", "section": "typography" },
+      { "name": "The Tabular Number Rule", "body": "Anything numeric carries .num (font-variant-numeric: tabular-nums), which .mono also sets by default. Prices, quantities, percentages and temperatures must not shift horizontally when they change.", "section": "typography" },
+      { "name": "The Italic-Is-the-Argument Rule", "body": "Italic on this page means one thing: the pivot word of a headline, set with <em> inside .disp, which renders italic in Film Orange. Do not use italic for emphasis in prose (that is strong), and do not use it decoratively.", "section": "typography" },
+      { "name": "The No-Blend Rule", "body": "No mix-blend-mode on any full-viewport layer, ever. A blended full-screen layer folds the entire page into one composited group and repaints it on every scroll frame. Plain alpha reaches the same look for free — both the grain and the warm wash are plain alpha.", "section": "elevation" },
+      { "name": "The Flat Plate Rule", "body": "A surface earns separation by being a different tone or by having a hairline drawn along it. It does not get a shadow, a lift, or a border-radius above 3px. Product cards, the benefits grid, the composition lists and the delivery points are all borderless blocks separated by a single 1px top rule.", "section": "elevation" },
+      { "name": "The Verifiable-Render Rule", "body": "content-visibility: auto was implemented on .sec and deliberately removed; the comment at its former site records why — whole sections came back blank from every screenshot pipeline, and a render nobody can verify is worse than a render nobody optimised. Do not reintroduce it without first solving the verification problem. The performance work lives elsewhere: no blended full-screen layers, videos paused the moment they are covered, posters instead of video below 760px.", "section": "elevation" },
+      { "name": "The Definite-Box Rule", "body": "img, svg, video carry height: auto in the reset and it is load-bearing. Without it, the width/height attributes make the box definite and every aspect-ratio in the stylesheet is silently ignored. Keep the attributes (they reserve layout), keep height: auto.", "section": "shapes" },
+      { "name": "The Aperture Rule", "body": "A section that contains an aperture must not paint its own background. The page has one fixed film at z-index 0; sections above it are opaque plates, and an aperture is a hole left in the plate. .sec.compare therefore sets background: transparent and lets its children (.compare__plate, .chalf__body, .compare__foot) paint paper individually, while .chalf--live and its media stay transparent so the film shows through. Painting a background on the section, on .chalf--live, or on the media box closes the hole. This was gotten wrong three times during the build.", "section": "shapes" },
+      { "name": "The One-Decode Rule", "body": "The fixed film serves both of its apertures with a single decode and pauses itself once the technology section covers it. Every other video is scoped, IntersectionObserver-paused, and never more than one at a time. Do not add a second full-frame video to serve a second window — cut a hole instead.", "section": "shapes" },
+      { "name": "The Inset-Centring Rule", "body": "Framer Motion owns transform on .film__v. Any element whose transform is animated from JS is centred by inset: 0; width: 100%; height: 100% alone — a centring translate written in CSS is overwritten at runtime and the media renders off-centre.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do leave a section transparent when it contains an aperture and let its inner plates paint the paper instead (.sec.compare is the worked example).",
+      "Do keep height: auto on img, svg, video and keep the intrinsic width/height attributes.",
+      "Do centre any JS-animated media box with inset: 0 and full width/height, never a CSS translate.",
+      "Do separate surfaces with a 1px rule token and a tone change; that is the whole depth system.",
+      "Do set every number in Spectral with tabular-nums, and every label, unit and caption in uppercase Geist Mono at 0.1em.",
+      "Do measure the contrast of any new text-bearing alpha, clear 4.5:1, and record the ratio in a comment beside the token.",
+      "Do swap video for its poster still in React below 760px and under prefers-reduced-data — useStills() — rather than hiding it in CSS, so the file is never fetched.",
+      "Do pause every video the moment it leaves the viewport (usePlayInView), and pause the fixed film once the technology section covers it.",
+      "Do animate only transform and opacity.",
+      "Do cap prose at its measure: 48ch for .prose, 54ch for the hero lede, 62ch for FAQ answers."
+    ],
+    "donts": [
+      "Don't paint a background on a section that holds an aperture, on .chalf--live, or on an aperture's media box. (The green technology section and the footer do paint their own ground and are correct to: the footer holds no aperture at all, and the jar aperture carries its own local plate colour rather than showing the fixed film.)",
+      "Don't put mix-blend-mode on any full-viewport layer.",
+      "Don't reintroduce content-visibility: auto without solving the screenshot-verification problem it caused.",
+      "Don't add a box-shadow. There are none in the build and none belong here; text-shadow is admissible only as a legibility halo over moving picture.",
+      "Don't add a second full-frame video to serve a second window. Cut a hole in the plate.",
+      "Don't reveal list items, cards, stats, grid cells, or figures other than the one already animating per section. Reveals are one heading — plus, where the build already does it, its immediate lede paragraph — per section, an opacity 0 → 1 with a 22–26px rise over 0.8–1s on cubic-bezier(0.16, 1, 0.3, 1), viewport: { once: true }. The hero's clipped word-rise is the only pure-transform reveal (y: 110% → 0 inside an overflow: hidden span, 0.07s stagger). The shop card's enter/exit is the one exception and it is functional: tab-switch feedback under AnimatePresence initial={false}, so it never plays on first paint.",
+      "Don't use --ink-20 (or any rule token) for text, and don't use --ink-58 for text a user must read — it measures 4.11:1 and is reserved for struck prices and duplicate meta.",
+      "Don't introduce a hue outside the token file, and don't promote a flavour tone off the 3px card strip.",
+      "Don't add benefit icons, glyph pictograms, kickers/eyebrows above headings, discount badges, or outlined cards. The section number in .sec-head is the only label that precedes a heading, and it is a numbered index, not a kicker.",
+      "Don't exceed 3px radius on anything that is not a pill.",
+      "Don't make any content reachable only on hover; (hover: none) must lose nothing."
+    ]
+  }
+}
