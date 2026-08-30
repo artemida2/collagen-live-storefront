@@ -1,0 +1,60 @@
+/* ── Collagen Live · distributor surface · design tokens ───────────────
+   Grounds are paper; the only saturated colour on the page is sampled
+   from the client's own film — the orange of the citrus and the red of
+   the cherries — plus the botanical green the live sections are drenched
+   in. Nothing here is a stock palette. ──────────────────────────────── */
+
+:root {
+  /* Paper grounds */
+  --paper: #f7f3ec;
+  --paper-2: #f0eae0;
+  --paper-3: #e6ddce;
+  --white: #ffffff;
+
+  /* Ink */
+  --ink: #1c1b17;
+  --ink-70: rgba(28, 27, 23, 0.7);
+  --ink-52: rgba(28, 27, 23, 0.52);
+  --ink-38: rgba(28, 27, 23, 0.38);
+  --ink-20: rgba(28, 27, 23, 0.2);
+
+  /* Botanical ground — whole sections, not accents */
+  --green: #17301f;
+  --green-2: #1f4028;
+  --green-3: #2b5636;
+
+  /* Ink on green */
+  --lume: #f2eee5;
+  --lume-72: rgba(242, 238, 229, 0.72);
+  --lume-46: rgba(242, 238, 229, 0.46);
+  --lume-22: rgba(242, 238, 229, 0.22);
+
+  /* Signal — straight out of the film */
+  --orange: #e2701b;
+  --orange-2: #f0913a;
+  --cherry: #b4222f;
+  --gold: #c08a2e;
+
+  /* Rules */
+  --rule: rgba(28, 27, 23, 0.14);
+  --rule-soft: rgba(28, 27, 23, 0.08);
+  --rule-lume: rgba(242, 238, 229, 0.18);
+  --rule-lume-soft: rgba(242, 238, 229, 0.09);
+  --hair: 1px;
+
+  /* Type */
+  --f-display: "Spectral", Georgia, "Times New Roman", serif;
+  --f-mono: "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
+  --f-text: "Manrope", "Segoe UI", system-ui, sans-serif;
+
+  /* Rhythm */
+  --gut: clamp(18px, 3.1vw, 56px);
+  --page: 1560px;
+  --band: clamp(58px, 8vw, 136px);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.24, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast: 0.22s;
+  --t-mid: 0.48s;
+}

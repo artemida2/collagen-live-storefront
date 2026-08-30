@@ -1,0 +1,204 @@
+/**
+ * Catalogue, names and prices are the manufacturer's, taken from
+ * collagen-live.ru on 2026-08-30. Nothing here is invented.
+ */
+
+export type Product = {
+  id: string
+  kind: 'jar' | 'set'
+  name: string
+  flavour: string
+  meta: string
+  course: string
+  weight: string
+  price: number
+  was?: number
+  img: string
+  tone: string
+  hit?: boolean
+  note: string
+}
+
+export const PRODUCTS: Product[] = [
+  {
+    id: 'smuzi',
+    kind: 'jar',
+    name: 'Клубничный смузи',
+    flavour: 'Клубника',
+    meta: 'Пищевой коллаген в желе',
+    course: 'курс 1,5 месяца',
+    weight: '0,5 кг',
+    price: 2200,
+    was: 3000,
+    img: '/media/t-berry.jpg',
+    tone: 'var(--cherry)',
+    hit: true,
+    note: 'Самый заказываемый вкус. Ягодный, густой, без сахара — ближе всего к смузи, чем к добавке.',
+  },
+  {
+    id: 'apple-pear',
+    kind: 'jar',
+    name: 'Райские яблоки и груши',
+    flavour: 'Яблоко + груша',
+    meta: 'Пищевой коллаген в желе',
+    course: 'курс 1,5 месяца',
+    weight: '0,5 кг',
+    price: 2200,
+    was: 3000,
+    img: '/media/t-apple.jpg',
+    tone: '#7d8f3a',
+    note: 'Спокойный садовый вкус для тех, кому яркие ягоды и цитрус утром — слишком.',
+  },
+  {
+    id: 'granat',
+    kind: 'jar',
+    name: 'С соком граната',
+    flavour: 'Гранат',
+    meta: 'С натуральным соком',
+    course: 'курс 1,5 месяца',
+    weight: '0,5 кг',
+    price: 2200,
+    was: 3000,
+    img: '/media/t-pom.jpg',
+    tone: 'var(--cherry)',
+    note: 'Натуральный гранатовый сок в составе: терпкий, плотный, с узнаваемой кислинкой.',
+  },
+  {
+    id: 'mango',
+    kind: 'jar',
+    name: 'С соком манго и апельсина',
+    flavour: 'Манго + апельсин',
+    meta: 'С натуральным соком',
+    course: 'курс 1,5 месяца',
+    weight: '0,5 кг',
+    price: 2200,
+    was: 3000,
+    img: '/media/t-citrus.jpg',
+    tone: 'var(--orange)',
+    note: 'Самый южный из вкусов. Хорошо идёт с водой и льдом, если желе не хочется есть ложкой.',
+  },
+  {
+    id: 'cherry',
+    kind: 'jar',
+    name: 'С соком черешни',
+    flavour: 'Черешня',
+    meta: 'С натуральным соком',
+    course: 'курс 1,5 месяца',
+    weight: '0,5 кг',
+    price: 2200,
+    was: 3000,
+    img: '/media/t-cherry.jpg',
+    tone: '#8e1f38',
+    note: 'Тёмная черешня без приторности — самый «взрослый» вкус в линейке.',
+  },
+  {
+    id: 'vitc',
+    kind: 'jar',
+    name: 'С витамином С, без вкуса',
+    flavour: 'Нейтральный',
+    meta: 'Без вкуса и запаха',
+    course: 'курс 1,5 месяца',
+    weight: '0,5 кг',
+    price: 2200,
+    was: 3000,
+    img: '/media/t-jar.jpg',
+    tone: 'var(--gold)',
+    note: 'Чистое желе без цвета, вкуса и запаха. Можно есть ложкой или растворить в чём угодно.',
+  },
+
+  {
+    id: 'set-smuzi',
+    kind: 'set',
+    name: 'Клубничный смузи · 2 банки',
+    flavour: 'Клубника',
+    meta: 'Для суставов, связок, кожи и волос',
+    course: 'курс 3 месяца',
+    weight: '2 × 500 г',
+    price: 4000,
+    img: '/media/t-berry.jpg',
+    tone: 'var(--cherry)',
+    note: 'Два месяца про запас: цена банки выходит ниже, чем поштучно.',
+  },
+  {
+    id: 'set-cherry',
+    kind: 'set',
+    name: 'Черешня · 2 банки',
+    flavour: 'Черешня',
+    meta: 'Для суставов, связок, кожи и волос',
+    course: 'курс 3 месяца',
+    weight: '2 × 500 г',
+    price: 4000,
+    img: '/media/t-cherry.jpg',
+    tone: '#8e1f38',
+    note: 'Тот же вкус на весь курс, без риска, что закончится на середине.',
+  },
+  {
+    id: 'set-granat',
+    kind: 'set',
+    name: 'Гранат · 2 банки',
+    flavour: 'Гранат',
+    meta: 'Для суставов, связок, кожи и волос',
+    course: 'курс 3 месяца',
+    weight: '2 × 500 г',
+    price: 4000,
+    img: '/media/t-pom.jpg',
+    tone: 'var(--cherry)',
+    note: 'Гранатовый сок в составе, объём на полный трёхмесячный курс.',
+  },
+  {
+    id: 'set-mango',
+    kind: 'set',
+    name: 'Манго и апельсин · 2 банки',
+    flavour: 'Манго + апельсин',
+    meta: 'Для суставов, связок, кожи и волос',
+    course: 'курс 3 месяца',
+    weight: '2 × 500 г',
+    price: 4000,
+    img: '/media/t-citrus.jpg',
+    tone: 'var(--orange)',
+    note: 'Цитрусовый курс целиком. Хорошо заходит летом и в жару.',
+  },
+  {
+    id: 'set-vitc-1kg',
+    kind: 'set',
+    name: 'С витамином С · 1 кг',
+    flavour: 'Нейтральный',
+    meta: 'Без вкуса и запаха',
+    course: 'курс 3 месяца',
+    weight: '1 кг',
+    price: 4000,
+    img: '/media/t-vitc.jpg',
+    tone: 'var(--gold)',
+    note: 'Одна большая банка вместо двух. Тот же нейтральный вкус, тот же витамин С.',
+  },
+  {
+    id: 'set-three-a',
+    kind: 'set',
+    name: 'Манго · черешня · гранат',
+    flavour: 'Три вкуса',
+    meta: 'С витамином С',
+    course: 'курс 4,5 месяца',
+    weight: '3 × 500 г',
+    price: 5800,
+    img: '/media/t-set.jpg',
+    tone: 'var(--green-3)',
+    note: 'Три сока в одном заказе — если ещё не решили, какой вкус ваш.',
+  },
+  {
+    id: 'set-three-b',
+    kind: 'set',
+    name: 'Манго · черешня · клубника',
+    flavour: 'Три вкуса',
+    meta: 'С витамином С',
+    course: 'курс 4,5 месяца',
+    weight: '3 × 500 г',
+    price: 5800,
+    img: '/media/t-lineup.jpg',
+    tone: 'var(--green-3)',
+    note: 'Тот же набор, но с клубничным смузи вместо граната.',
+  },
+]
+
+export const FREE_DELIVERY_FROM = 8000
+
+export const rub = (n: number) => n.toLocaleString('ru-RU').replace(/ /g, ' ') + ' ₽'

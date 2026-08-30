@@ -1,0 +1,97 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-text);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+h1, h2, h3, h4, p, figure, blockquote, ul, ol, dl, dd, fieldset { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+fieldset { border: 0; padding: 0; }
+/* height:auto is load-bearing: without it the width/height attributes make the
+   box definite and every `aspect-ratio` below is silently ignored. */
+img, svg, video { display: block; max-width: 100%; height: auto; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+input, select, textarea { font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+
+::selection { background: var(--orange); color: var(--white); }
+
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 2px; }
+
+/* ── shared type instruments ────────────────────────────────────────── */
+
+.mono {
+  font-family: var(--f-mono);
+  font-weight: 400;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.45;
+  color: var(--ink-52);
+}
+.num { font-variant-numeric: tabular-nums; }
+
+.disp {
+  font-family: var(--f-display);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.prose {
+  font-size: clamp(15px, 1.02vw, 17px);
+  line-height: 1.66;
+  color: var(--ink-70);
+  max-width: 48ch;
+}
+.prose strong { font-weight: 700; color: var(--ink); }
+.on-green .prose { color: var(--lume-72); }
+.on-green .prose strong { color: var(--lume); }
+.on-green .mono { color: var(--lume-46); }
+
+.shell { width: 100%; max-width: var(--page); margin: 0 auto; padding-inline: var(--gut); }
+
+.grid12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(16px, 1.5vw, 28px);
+}
+
+/* ── section head ───────────────────────────────────────────────────── */
+
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 14px;
+  border-bottom: var(--hair) solid var(--rule);
+}
+.on-green .sec-head { border-bottom-color: var(--rule-lume); }
+.sec-head__id { display: flex; gap: 18px; align-items: baseline; }
+.sec-head__n { color: var(--orange); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
