@@ -273,6 +273,32 @@ horizontally when they change.
 headline, set with `<em>` inside `.disp`, which renders italic in Film Orange. Do not use italic for
 emphasis in prose (that is `strong`), and do not use it decoratively.
 
+### Size ramp
+
+Every literal `font-size` in CSS sits on this ramp. It was consolidated from 27 drifting values —
+13px next to 13.5px next to 13.8px, 14px next to 14.2px — that were accidents of authoring rather
+than decisions. Fluid `clamp()` display sizes are separate and are listed above.
+
+| px | used for |
+|---|---|
+| 9.5 | micro mono: rail sub-label, chips, captions, legal, fine print |
+| 10.5 | `.mono` default — section heads, meta rows, tags |
+| 12 | quantity stepper, struck hero price |
+| 13.5 | card note, footer link, small prose |
+| 14.5 | UI text: rail links, buttons, spec rows, list bodies |
+| 15 | drawer line title, verdict copy, form input |
+| 16 | document base, FAQ question, benefit and delivery titles |
+| 19 | card title |
+| 21 | rail wordmark, SKU label |
+| 26 | drawer heading, footer mark |
+| 30 | drawer total |
+| 40 | composition count numerals |
+| 46 | preloader mark |
+
+**Exempt:** the three `.jar__*` sizes (16 / 8.5 / 6.5) are SVG user units inside a 320-wide
+`viewBox`, not CSS pixels. They scale with the artwork and are not on this ramp. Anything else that
+sets a literal size in SVG user space is exempt on the same grounds; say so in a comment.
+
 ## Layout
 
 The page is a single centred column of `1560px` max width (`--page`) with a fluid gutter
