@@ -30,17 +30,11 @@ export default function Benefits() {
 
         <ul className="ben__grid">
           {BENEFITS.map((b, i) => (
-            <motion.li
-              key={b.title}
-              initial={{ y: 20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.7, delay: (i % 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <li key={b.title}>
               <span className="mono ben__n num">{String(i + 1).padStart(2, '0')}</span>
               <h3 className="ben__t">{b.title}</h3>
               <p className="ben__b">{b.body}</p>
-            </motion.li>
+            </li>
           ))}
         </ul>
 

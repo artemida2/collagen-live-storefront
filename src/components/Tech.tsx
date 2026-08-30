@@ -57,18 +57,12 @@ export default function Tech({ reduced }: { reduced: boolean }) {
         </div>
 
         <ul className="tech__stats">
-          {STATS.map(([n, l, s], i) => (
-            <motion.li
-              key={l}
-              initial={{ y: 20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            >
+          {STATS.map(([n, l, s]) => (
+            <li key={l}>
               <span className="tech__n num">{n}</span>
               <span className="tech__l">{l}</span>
               <span className="mono">{s}</span>
-            </motion.li>
+            </li>
           ))}
         </ul>
       </div>

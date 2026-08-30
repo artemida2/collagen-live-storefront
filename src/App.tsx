@@ -9,6 +9,7 @@ import Film from './components/Film'
 import Footer from './components/Footer'
 import Grain from './components/Grain'
 import Hero from './components/Hero'
+import Plate from './components/Plate'
 import Preloader from './components/Preloader'
 import Rail from './components/Rail'
 import Ritual from './components/Ritual'
@@ -48,6 +49,7 @@ export default function App() {
           <Tech reduced={reduced} />
           <Composition />
           <Benefits />
+          <Plate />
           <Shop inCart={inCart} onAdd={add} />
           <Ritual />
           <Delivery />

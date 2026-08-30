@@ -36,17 +36,11 @@ export default function Delivery() {
             </motion.h2>
 
             <ul className="del__points">
-              {POINTS.map(([t, b], i) => (
-                <motion.li
-                  key={t}
-                  initial={{ y: 16, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.65, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                >
+              {POINTS.map(([t, b]) => (
+                <li key={t}>
                   <h3 className="del__t">{t}</h3>
                   <p className="prose">{b}</p>
-                </motion.li>
+                </li>
               ))}
             </ul>
           </div>

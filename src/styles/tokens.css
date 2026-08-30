@@ -13,10 +13,10 @@
 
   /* Ink */
   --ink: #1c1b17;
-  --ink-70: rgba(28, 27, 23, 0.7);
-  --ink-52: rgba(28, 27, 23, 0.52);
-  --ink-38: rgba(28, 27, 23, 0.38);
-  --ink-20: rgba(28, 27, 23, 0.2);
+  --ink-70: rgba(28, 27, 23, 0.7); /* 6.0:1 on paper */
+  --ink-52: rgba(28, 27, 23, 0.64); /* 4.96:1 — every mono label and caption */
+  --ink-38: rgba(28, 27, 23, 0.58); /* 4.11:1 — struck prices, non-essential meta */
+  --ink-20: rgba(28, 27, 23, 0.2); /* rules and borders only, never text */
 
   /* Botanical ground — whole sections, not accents */
   --green: #17301f;
@@ -25,9 +25,9 @@
 
   /* Ink on green */
   --lume: #f2eee5;
-  --lume-72: rgba(242, 238, 229, 0.72);
-  --lume-46: rgba(242, 238, 229, 0.46);
-  --lume-22: rgba(242, 238, 229, 0.22);
+  --lume-72: rgba(242, 238, 229, 0.72); /* 7.1:1 on green */
+  --lume-46: rgba(242, 238, 229, 0.6); /* 5.4:1 — mono sublabels on green */
+  --lume-22: rgba(242, 238, 229, 0.22); /* rules only, never text */
 
   /* Signal — straight out of the film */
   --orange: #e2701b;

@@ -5,7 +5,7 @@ const FACTS: [string, string][] = [
   ['96 %', 'усвоение по данным производителя'],
   ['3 типа', 'коллагена I, II и III'],
   ['19 + 16', 'аминокислот и микроэлементов'],
-  ['0 г', 'сахара, красителей, ароматизаторов'],
+  ['По России', 'доставка со склада, бесплатно от 8 000 ₽'],
 ]
 
 const up = {
@@ -29,15 +29,6 @@ export default function Hero({ started, onGo }: { started: boolean; onGo: (id: s
 
       <motion.div className="hero__body shell" style={{ y, opacity: fade }}>
         <div className="hero__copy">
-          <motion.span
-            className="mono hero__eyebrow"
-            initial={{ opacity: 0 }}
-            animate={started ? { opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.15 }}
-          >
-            ОФИЦИАЛЬНЫЙ ДИСТРИБЬЮТОР COLLAGEN LIVE · ДОСТАВКА ПО РОССИИ
-          </motion.span>
-
           <h1 className="hero__h">
             <span className="hero__clip">
               <motion.span className="disp hero__word" variants={up} initial="hidden" animate={on} custom={0}>
@@ -61,7 +52,7 @@ export default function Hero({ started, onGo }: { started: boolean; onGo: (id: s
             className="hero__lede"
             initial={{ opacity: 0, y: 14 }}
             animate={started ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.85, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.85, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
           >
             Collagen Live — пищевой коллаген в форме желе. Его получают по технологии Multiferment DDL,
             при которой молекула не разрушается нагревом. Поэтому производитель называет его живым.
@@ -71,7 +62,7 @@ export default function Hero({ started, onGo }: { started: boolean; onGo: (id: s
             className="hero__acts"
             initial={{ opacity: 0, y: 14 }}
             animate={started ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.85, delay: 0.52, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.85, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
             <button className="btn btn--solid" onClick={() => onGo('shop')}>
               <span>Выбрать вкус</span>
@@ -93,7 +84,7 @@ export default function Hero({ started, onGo }: { started: boolean; onGo: (id: s
         className="hero__facts shell"
         initial={{ opacity: 0 }}
         animate={started ? { opacity: 1 } : {}}
-        transition={{ duration: 1, delay: 0.75 }}
+        transition={{ duration: 1, delay: 0.55 }}
       >
         {FACTS.map(([n, t]) => (
           <li key={n}>

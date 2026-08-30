@@ -25,23 +25,17 @@ export default function Composition() {
         </motion.h2>
 
         <ul className="comp__types">
-          {TYPES.map((t, i) => (
-            <motion.li
-              key={t.no}
-              initial={{ y: 22, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.75, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            >
+          {TYPES.map((t) => (
+            <li key={t.no}>
               <span className="comp__roman">{t.no}</span>
               <h3 className="comp__t">{t.title}</h3>
               <p className="prose comp__b">{t.body}</p>
-            </motion.li>
+            </li>
           ))}
         </ul>
 
         <div className="comp__lists">
-          <motion.div className="comp__list" {...reveal}>
+          <div className="comp__list">
             <div className="comp__list-h">
               <span className="comp__count num">19</span>
               <span className="mono">аминокислот</span>
@@ -51,9 +45,9 @@ export default function Composition() {
                 <li key={a}>{a}</li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div className="comp__list" {...reveal} transition={{ ...reveal.transition, delay: 0.1 }}>
+          <div className="comp__list">
             <div className="comp__list-h">
               <span className="comp__count num">16</span>
               <span className="mono">макро- и микроэлементов</span>
@@ -63,9 +57,9 @@ export default function Composition() {
                 <li key={e}>{e}</li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div className="comp__aside" {...reveal} transition={{ ...reveal.transition, delay: 0.16 }}>
+          <div className="comp__aside">
             <figure className="comp__fig">
               <img src="/media/glass.jpg" alt="Банка Collagen Live рядом со стаканом воды" width={1040} height={1380} />
             </figure>
@@ -76,7 +70,7 @@ export default function Composition() {
                 эффективнее. А заодно укрепляет иммунитет.
               </p>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         <div className="comp__clean">
@@ -96,6 +90,10 @@ export default function Composition() {
           </ul>
           <span className="mono comp__src">Изготовлен из сертифицированного сырья птицы</span>
         </div>
+
+        <p className="mono comp__attr">
+          Состав и формулировки приведены по описанию производителя Collagen Live
+        </p>
       </div>
     </section>
   )

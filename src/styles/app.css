@@ -216,12 +216,13 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 /* ── 4. section shells ─────────────────────────────────────────────── */
 
 .sec { position: relative; z-index: 1; padding-block: var(--band); background: var(--paper); }
-/* The page is ~13 000 px tall; below the fold the browser should not paint
-   what nobody is looking at. Intrinsic sizes keep the scrollbar honest. */
-#benefits { content-visibility: auto; contain-intrinsic-size: auto 2000px; }
-#shop { content-visibility: auto; contain-intrinsic-size: auto 1700px; }
-#ritual { content-visibility: auto; contain-intrinsic-size: auto 1320px; }
-#delivery { content-visibility: auto; contain-intrinsic-size: auto 950px; }
+/* `content-visibility: auto` was here and is deliberately gone: it saved a
+   little paint on a page that no longer does anything expensive per frame,
+   and in exchange whole sections came back blank from every screenshot
+   pipeline — a render nobody can verify is worse than a render nobody
+   optimised. The real wins live elsewhere: no blended full-screen layers,
+   videos paused the moment they are covered, and posters instead of video
+   below 760px. */
 .sec--paper2 { background: var(--paper-2); }
 .sec--green { background: var(--green); color: var(--lume); }
 
@@ -252,7 +253,6 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 }
 /* the headline sets its own measure; only the prose is constrained */
 .hero__copy { max-width: min(1040px, 100%); }
-.hero__eyebrow { display: block; margin-bottom: clamp(16px, 1.8vw, 26px); letter-spacing: 0.15em; }
 .hero__h { margin: 0; }
 .hero__clip { display: block; overflow: hidden; padding-bottom: 0.02em; }
 .hero__word {
@@ -534,6 +534,7 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 }
 .comp__chips--ok li { border-color: rgba(23, 48, 31, 0.32); color: var(--green); background: rgba(23, 48, 31, 0.05); }
 .comp__src { margin-left: auto; }
+.comp__attr { margin-top: 18px; }
 
 /* ── 9. benefits ───────────────────────────────────────────────────── */
 
@@ -559,6 +560,23 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 .ben__t { margin-top: 10px; font-size: 16.5px; font-weight: 700; letter-spacing: -0.01em; }
 .ben__b { margin-top: 7px; font-size: 13.8px; line-height: 1.58; color: var(--ink-70); }
 .ben__note { margin-top: clamp(32px, 3.4vw, 54px); padding-top: 16px; border-top: var(--hair) solid var(--rule); }
+
+/* ── 9b. full-bleed product plate ──────────────────────────────────── */
+
+.plate { position: relative; z-index: 1; background: var(--paper); }
+.plate__fig { margin: 0; }
+.plate__fig img {
+  width: 100%;
+  aspect-ratio: 20 / 9;
+  object-fit: cover;
+  object-position: center 46%;
+}
+.plate__cap {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-block: 14px 0;
+}
 
 /* ── 10. shop ──────────────────────────────────────────────────────── */
 
@@ -878,7 +896,7 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
   font-size: 15px;
   transition: border-color 0.2s var(--ease);
 }
-.field input::placeholder { color: var(--ink-38); }
+.field input::placeholder { color: rgba(28, 27, 23, 0.62); } /* 4.67:1 */
 .field input:focus { border-color: var(--ink); outline: none; }
 .drawer__fine { font-size: 9px; line-height: 1.6; }
 
@@ -969,13 +987,19 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 /* ── ≤760: phones. Video is already swapped for posters in React. ──── */
 @media (max-width: 760px) {
   .hero__body { padding-bottom: 28px; }
-  .hero__word { font-size: clamp(30px, 8.6vw, 46px); }
-  .hero__eyebrow { font-size: 9px; letter-spacing: 0.1em; }
-  .hero__lede { font-size: 15px; max-width: none; }
+  .plate__fig img { aspect-ratio: 4 / 3; }
+  .plate__cap { flex-direction: column; gap: 4px; }
+  .hero__word { font-size: clamp(34px, 9.8vw, 52px); }
+    .hero__lede { font-size: 15px; max-width: none; }
   .hero__acts { gap: 10px; }
   .hero__acts .btn { flex: 1 1 auto; justify-content: center; }
   .hero__price { width: 100%; padding-left: 0; padding-top: 12px; border-top: var(--hair) solid var(--rule); }
-  .hero__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .hero__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
+  .hero__facts li { padding: 14px 0; }
+  .hero__facts li:nth-child(odd) { padding-right: 14px; border-right: var(--hair) solid var(--rule); }
+  .hero__facts li:nth-child(even) { padding-left: 14px; }
+  .hero__facts li:nth-child(-n + 2) { border-bottom: var(--hair) solid var(--rule); }
+  .hero__fact-n { font-size: 21px; }
 
   .hero__scrim {
     background: linear-gradient(
@@ -1013,7 +1037,6 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 @media (max-width: 460px) {
   .comp__types { grid-template-columns: minmax(0, 1fr); }
   .ben__grid { grid-template-columns: minmax(0, 1fr); }
-  .hero__facts { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .hero__acts .btn { width: 100%; }
   .shop__tabs { width: 100%; }
   .shop__tab { flex: 1; }

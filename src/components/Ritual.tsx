@@ -47,20 +47,14 @@ export default function Ritual() {
             </motion.h2>
 
             <ol className="ritual__steps">
-              {STEPS.map(([n, t, b], i) => (
-                <motion.li
-                  key={n}
-                  initial={{ y: 18, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                >
+              {STEPS.map(([n, t, b]) => (
+                <li key={n}>
                   <span className="mono ritual__n">{n}</span>
                   <div>
                     <h3 className="ritual__t">{t}</h3>
                     <p className="prose">{b}</p>
                   </div>
-                </motion.li>
+                </li>
               ))}
             </ol>
           </div>
