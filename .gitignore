@@ -9,3 +9,4 @@ Thumbs.db
 # itself belongs in the repo.
 .impeccable/*
 !.impeccable/design.json
+!.impeccable/config.json

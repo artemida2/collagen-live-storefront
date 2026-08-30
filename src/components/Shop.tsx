@@ -9,7 +9,7 @@ const TABS: [Tab, string, string][] = [
   ['set', 'Сеты', 'курс от 3 месяцев'],
 ]
 
-function Card({ p, added, onAdd }: { p: Product; added: boolean; onAdd: () => void }) {
+function Card({ p, added, onAdd, onOpen }: { p: Product; added: boolean; onAdd: () => void; onOpen: () => void }) {
   return (
     <motion.li
       className="card"
@@ -19,6 +19,10 @@ function Card({ p, added, onAdd }: { p: Product; added: boolean; onAdd: () => vo
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
     >
+      <button className="card__open" onClick={onOpen} aria-label={`Подробнее: ${p.name}`}>
+        <span className="mono card__more">Подробнее</span>
+      </button>
+
       <div className="card__media">
         <img src={p.img} alt={p.name} width={700} height={700} loading="lazy" decoding="async" />
         {p.hit && <span className="card__hit mono">Хит</span>}
@@ -58,9 +62,11 @@ function Card({ p, added, onAdd }: { p: Product; added: boolean; onAdd: () => vo
 export default function Shop({
   inCart,
   onAdd,
+  onOpen,
 }: {
   inCart: (id: string) => boolean
   onAdd: (id: string) => void
+  onOpen: (p: Product) => void
 }) {
   const [tab, setTab] = useState<Tab>('jar')
   const list = useMemo(() => PRODUCTS.filter((p) => p.kind === tab), [tab])
@@ -106,7 +112,7 @@ export default function Shop({
         <ul className="shop__grid">
           <AnimatePresence mode="popLayout" initial={false}>
             {list.map((p) => (
-              <Card key={p.id} p={p} added={inCart(p.id)} onAdd={() => onAdd(p.id)} />
+              <Card key={p.id} p={p} added={inCart(p.id)} onAdd={() => onAdd(p.id)} onOpen={() => onOpen(p)} />
             ))}
           </AnimatePresence>
         </ul>

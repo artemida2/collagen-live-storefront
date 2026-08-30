@@ -1054,3 +1054,253 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 @media (hover: none) {
   .card:hover .card__media img { transform: none; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   17. PRODUCT MODAL
+   Opens over the page so the cart and the scroll position survive. The
+   gallery is only in the DOM while the panel is open, so nine to fourteen
+   large frames per taste cost the landing page nothing.
+   ══════════════════════════════════════════════════════════════════════ */
+
+.card { position: relative; }
+.card__open {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+.card__more {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  opacity: 0;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: rgba(247, 243, 236, 0.94);
+  color: var(--ink);
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.24s var(--ease);
+}
+.card:hover .card__more { opacity: 1; }
+.card:has(.card__hit) .card__more { left: auto; right: 12px; }
+.card__hit { z-index: 3; }
+/* the add button must stay clickable through the card's own hit area */
+.card__foot .add { position: relative; z-index: 3; }
+
+.pm { position: fixed; inset: 0; z-index: 220; display: grid; place-items: center; padding: clamp(12px, 3vw, 44px); }
+.pm__veil { position: absolute; inset: 0; background: rgba(23, 27, 22, 0.5); }
+.pm__panel {
+  position: relative;
+  width: min(1180px, 100%);
+  max-height: min(880px, 92vh);
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  /* the row must be constrained too, or the gallery column sizes to its own
+     content and the thumbnail strip overflows past max-height */
+  grid-template-rows: minmax(0, 1fr);
+  background: var(--paper);
+  border: var(--hair) solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.pm__x {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  z-index: 4;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-content: center;
+  border-radius: 999px;
+  border: var(--hair) solid var(--rule);
+  background: rgba(247, 243, 236, 0.92);
+}
+.pm__x svg { width: 13px; height: 13px; }
+.pm__x:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.pm__gal {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  background: var(--paper-2);
+  border-right: var(--hair) solid var(--rule);
+  min-height: 0;
+}
+.pm__stage { position: relative; display: grid; place-items: center; min-height: 0; padding: 18px; }
+.pm__stage img { width: 100%; height: 100%; object-fit: contain; }
+.pm__arr {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-content: center;
+  border-radius: 999px;
+  background: rgba(247, 243, 236, 0.9);
+  border: var(--hair) solid var(--rule);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.pm__arr svg { width: 11px; height: 18px; }
+.pm__arr:hover { background: var(--ink); color: var(--paper); }
+.pm__arr--l { left: 14px; }
+.pm__arr--r { right: 14px; }
+.pm__count {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(247, 243, 236, 0.9);
+  color: var(--ink);
+}
+
+.pm__thumbs {
+  display: flex;
+  gap: 6px;
+  padding: 10px 12px 12px;
+  overflow-x: auto;
+  border-top: var(--hair) solid var(--rule);
+  scrollbar-width: thin;
+}
+.pm__thumb {
+  width: 58px;
+  height: 58px;
+  flex: none;
+  border: var(--hair) solid var(--rule);
+  border-radius: 3px;
+  overflow: hidden;
+  opacity: 0.55;
+  transition: opacity 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.pm__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.pm__thumb:hover { opacity: 0.85; }
+.pm__thumb.is-on { opacity: 1; border-color: var(--ink); }
+
+.pm__info { display: grid; align-content: start; gap: 0; overflow-y: auto; min-height: 0; padding: clamp(22px, 2.6vw, 38px); }
+.pm__head { display: grid; gap: 8px; padding-right: 44px; }
+.pm__h {
+  font-family: var(--f-display);
+  font-weight: 300;
+  font-size: clamp(26px, 2.4vw, 34px);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+.pm__note { font-size: 14.5px; line-height: 1.6; color: var(--ink-70); }
+
+.pm__buy {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 22px 0 8px;
+  padding: 18px 0;
+  border-top: var(--hair) solid var(--rule);
+  border-bottom: var(--hair) solid var(--rule);
+}
+.pm__price { display: grid; gap: 2px; }
+.pm__p { font-family: var(--f-display); font-size: 30px; font-weight: 400; line-height: 1; }
+.pm__was { font-family: var(--f-mono); font-size: 12px; color: var(--ink-58); }
+.pm__buy .btn.is-in { color: var(--lume); }
+.pm__buy .btn.is-in::before { background: var(--green); }
+
+.pm__panels { display: grid; }
+.pmp { border-bottom: var(--hair) solid var(--rule-soft); }
+.pmp__q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 0;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.008em;
+  transition: color 0.2s var(--ease);
+}
+.pmp__q:hover { color: var(--orange); }
+.pmp__mark { position: relative; flex: none; width: 12px; height: 12px; }
+.pmp__mark::before, .pmp__mark::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.32s var(--ease-out);
+}
+.pmp__mark::after { transform: rotate(90deg); }
+.pmp.is-open .pmp__mark::after { transform: rotate(0deg); }
+.pmp__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s var(--ease-out); }
+.pmp.is-open .pmp__a { grid-template-rows: 1fr; }
+.pmp__in { overflow: hidden; font-size: 13.5px; line-height: 1.66; color: var(--ink-70); }
+.pmp.is-open .pmp__in { padding-bottom: 18px; }
+
+.pm__specs { display: grid; margin: 0; }
+.pm__specs > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 7px 0;
+  border-bottom: var(--hair) solid var(--rule-soft);
+}
+.pm__specs > div:last-child { border-bottom: 0; }
+.pm__specs dt { color: var(--ink-58); font-size: 9.5px; }
+.pm__specs dd { margin: 0; color: var(--ink); font-size: 9.5px; text-align: right; }
+
+.pm__comp { display: grid; gap: 6px; }
+.pm__comp li { position: relative; padding-left: 15px; }
+.pm__comp li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 7px;
+  height: 1px;
+  background: var(--orange);
+}
+.pm__comp li::first-letter { text-transform: uppercase; }
+.pm__fine { margin-top: 12px; color: var(--ink-58); font-size: 12px; line-height: 1.6; }
+
+.pm__ind { display: grid; gap: 6px; }
+.pm__ind li { position: relative; padding-left: 15px; }
+.pm__ind li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 7px;
+  height: 1px;
+  background: var(--orange);
+}
+.pm__ind li::first-letter { text-transform: uppercase; }
+.pm__contra {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: var(--hair) solid rgba(180, 34, 47, 0.32);
+  border-radius: 3px;
+  color: var(--ink);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.pm__contra strong { color: var(--cherry); font-weight: 700; }
+
+.pm__src { margin-top: 18px; color: var(--ink-58); }
+
+@media (max-width: 900px) {
+  .pm { padding: 0; }
+  .pm__panel {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    max-height: 100vh;
+    height: 100%;
+    border-radius: 0;
+    border: 0;
+  }
+  .pm__gal { border-right: 0; border-bottom: var(--hair) solid var(--rule); }
+  .pm__stage { aspect-ratio: 1; padding: 12px; }
+  .pm__thumb { width: 48px; height: 48px; }
+  .card__more { display: none; }
+}

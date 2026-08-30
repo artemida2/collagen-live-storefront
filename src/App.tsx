@@ -11,10 +11,12 @@ import Grain from './components/Grain'
 import Hero from './components/Hero'
 import Plate from './components/Plate'
 import Preloader from './components/Preloader'
+import ProductModal from './components/ProductModal'
 import Rail from './components/Rail'
 import Ritual from './components/Ritual'
 import Shop from './components/Shop'
 import Tech from './components/Tech'
+import type { Product } from './data/catalog'
 import { scrollToId, useCart, useLenis, useReducedMotion } from './lib/hooks'
 
 export default function App() {
@@ -24,6 +26,7 @@ export default function App() {
   const cart = useCart()
   const [ready, setReady] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
+  const [shown, setShown] = useState<Product | null>(null)
 
   const onReady = useCallback(() => setReady(true), [])
   const go = useCallback((id: string) => scrollToId(id, lenis.current), [lenis])
@@ -31,10 +34,15 @@ export default function App() {
   const add = useCallback(
     (id: string) => {
       cart.add(id)
+      setShown(null)
       setCartOpen(true)
     },
     [cart],
   )
+  const openProduct = useCallback((p: Product) => {
+    setCartOpen(false)
+    setShown(p)
+  }, [])
 
   return (
     <>
@@ -50,7 +58,7 @@ export default function App() {
           <Composition />
           <Benefits />
           <Plate />
-          <Shop inCart={inCart} onAdd={add} />
+          <Shop inCart={inCart} onAdd={add} onOpen={openProduct} />
           <Ritual />
           <Delivery />
         </main>
@@ -58,6 +66,12 @@ export default function App() {
         <Footer onGo={go} onCart={() => setCartOpen(true)} />
       </div>
 
+      <ProductModal
+        product={shown}
+        onClose={() => setShown(null)}
+        onAdd={add}
+        inCart={shown ? inCart(shown.id) : false}
+      />
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} cart={cart} />
       <Preloader ready={ready} reduced={reduced} />
     </>
