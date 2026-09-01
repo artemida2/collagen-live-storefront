@@ -24,10 +24,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      # served from a repository subpath, so the bundle needs the base baked in
+      # public/CNAME points Pages at crimeacollagen.ru, so the site is served
+      # from the root of that domain and the default base is the right one
       - run: npm run build
-        env:
-          DEPLOY_BASE: /${{ github.event.repository.name }}/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
