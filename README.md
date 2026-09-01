@@ -47,10 +47,12 @@ npm run preview  # http://127.0.0.1:5191
 ## Что нужно заменить перед запуском
 
 - Заявка уходит в form-relay на VPS: `POST https://hooks.neirolanding.ru/api/submit/collagen`,
-  см. `src/lib/relay.ts`. Приёмник проверяет origin, и в его списке разрешённых стоит
-  старый адрес `https://artemida2.github.io` — после переезда на
-  `https://crimeacollagen.ru` заявки будут отклоняться, пока список не обновят
-  на самом VPS. С `localhost` форма не работает по той же причине.
+  см. `src/lib/relay.ts`. Приёмник проверяет origin по списку в `config/sites.json`
+  на VPS (`/root/form-relay/form-relay`, ключ `collagen`); там разрешены
+  `https://crimeacollagen.ru`, `https://www.crimeacollagen.ru` и старый
+  `https://artemida2.github.io` — последний оставлен на случай отката
+  с домена. С `localhost` форма не работает по той же причине — проверять
+  можно лишь с живого адреса.
   На сервере доставка чинится отдельно: IP `5.42.96.27` должен быть в списке
   разрешённых в аккаунте Brevo, и сервер должен доставать до `api.telegram.org`.
 - Почтовый адрес продавца в `src/data/legal.ts`: закон требует публиковать адрес
