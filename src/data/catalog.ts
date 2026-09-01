@@ -22,7 +22,10 @@ export type Product = {
   note: string
 }
 
-import { asset } from '../lib/asset'
+/* Explicit extension: this module is also imported by vite.config.ts to
+   generate the page's schema.org block, and Vite's config loader resolves
+   without a bundler's extension guessing. */
+import { asset } from '../lib/asset.ts'
 
 /** Flavour carousels supplied by the distributor, one set per taste. */
 const G = {
