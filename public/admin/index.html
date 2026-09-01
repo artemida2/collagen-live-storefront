@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Управление сайтом · Collagen Live Крым</title>
+
+    <!--
+      Not a page for visitors: it is the editor, it holds a GitHub token in the
+      browser, and a search engine indexing it would be pure noise.
+    -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!--
+      The CMS bundle is committed to this repository rather than pulled from a
+      CDN at run time. The script is handed a token with write access to the
+      repository, so an unpinned third-party origin would be a place where that
+      token could be taken; the version below moves only when someone changes
+      this file on purpose.
+
+      Version: Sveltia CMS 0.204.0 (MIT), from npm @sveltia/cms.
+      To update: npm pack @sveltia/cms@<version>, unpack, and copy
+      package/dist/sveltia-cms.mjs over public/admin/sveltia-cms.js.
+    -->
+    <script src="./sveltia-cms.js" type="module"></script>
+  </head>
+  <body></body>
+</html>

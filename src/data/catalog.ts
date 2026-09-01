@@ -1,8 +1,25 @@
 /**
  * Names, weights and composition are the manufacturer's, taken from
- * collagen-live.ru. Prices are the Crimean distributor's own: 2 700 ₽ a jar
- * on every position, 7 500 ₽ for a three-jar course. Nothing here is invented.
+ * collagen-live.ru. Prices are the Crimean distributor's own. Nothing here is
+ * invented.
+ *
+ * The catalogue is split in two on purpose. Everything the distributor may
+ * want to change on a Tuesday — price, name, the line under it — lives in
+ * src/content/products/*.json and is edited at /admin. Everything that would
+ * break the page if it were wrong — the id the cart stores, the photographs,
+ * the colour the card is tinted with, the order the shelf is laid out in —
+ * stays in code, where a mistake fails the build instead of reaching a
+ * customer.
  */
+
+import { asset } from '../lib/asset.ts'
+import cherry from '../content/products/cherry.json' with { type: 'json' }
+import granat from '../content/products/granat.json' with { type: 'json' }
+import mango from '../content/products/mango.json' with { type: 'json' }
+import setThreeA from '../content/products/set-three-a.json' with { type: 'json' }
+import setThreeB from '../content/products/set-three-b.json' with { type: 'json' }
+import smuzi from '../content/products/smuzi.json' with { type: 'json' }
+import vitc from '../content/products/vitc.json' with { type: 'json' }
 
 export type Product = {
   id: string
@@ -22,10 +39,8 @@ export type Product = {
   note: string
 }
 
-/* Explicit extension: this module is also imported by vite.config.ts to
-   generate the page's schema.org block, and Vite's config loader resolves
-   without a bundler's extension guessing. */
-import { asset } from '../lib/asset.ts'
+/** The half of a product that /admin may rewrite. */
+type Editable = Omit<Product, 'id' | 'kind' | 'img' | 'gallery' | 'tone'>
 
 /** Flavour carousels supplied by the distributor, one set per taste. */
 const G = {
@@ -37,122 +52,65 @@ const G = {
   trio: [asset('/media/p/trio-1.jpg'), asset('/media/p/trio-2.jpg')],
 }
 
-export const PRODUCTS: Product[] = [
-  {
-    id: 'smuzi',
-    kind: 'jar',
-    name: 'Клубничный смузи',
-    flavour: 'Клубника',
-    meta: 'Пищевой коллаген в желе',
-    course: 'курс 1,5 месяца',
-    weight: '0,5 кг',
-    price: 2700,
-    was: 3000,
-    img: asset('/media/p/t-smuzi.jpg'),
-    gallery: G.smuzi,
-    juice: 'натуральный сок клубники',
-    tone: 'var(--cherry)',
-    hit: true,
-    note: 'Самый заказываемый вкус. Ягодный, густой, без сахара — ближе всего к смузи, чем к добавке.',
-  },
-  {
-    id: 'granat',
-    kind: 'jar',
-    name: 'С соком граната',
-    flavour: 'Гранат',
-    meta: 'С натуральным соком',
-    course: 'курс 1,5 месяца',
-    weight: '0,5 кг',
-    price: 2700,
-    was: 3000,
-    img: asset('/media/p/t-granat.jpg'),
-    gallery: G.granat,
-    juice: 'натуральный сок граната',
-    tone: 'var(--cherry)',
-    note: 'Натуральный гранатовый сок в составе: терпкий, плотный, с узнаваемой кислинкой.',
-  },
-  {
-    id: 'mango',
-    kind: 'jar',
-    name: 'С соком манго и апельсина',
-    flavour: 'Манго + апельсин',
-    meta: 'С натуральным соком',
-    course: 'курс 1,5 месяца',
-    weight: '0,5 кг',
-    price: 2700,
-    was: 3000,
-    img: asset('/media/p/t-mango.jpg'),
-    gallery: G.mango,
-    juice: 'натуральный сок манго и апельсина',
-    tone: 'var(--orange)',
-    note: 'Самый южный из вкусов. Хорошо идёт с водой и льдом, если желе не хочется есть ложкой.',
-  },
-  {
-    id: 'cherry',
-    kind: 'jar',
-    name: 'С соком черешни',
-    flavour: 'Черешня',
-    meta: 'С натуральным соком',
-    course: 'курс 1,5 месяца',
-    weight: '0,5 кг',
-    price: 2700,
-    was: 3000,
-    img: asset('/media/p/t-cherry.jpg'),
-    gallery: G.cherry,
-    juice: 'натуральный сок черешни',
-    tone: '#8e1f38',
-    note: 'Тёмная черешня без приторности — самый «взрослый» вкус в линейке.',
-  },
-  {
-    id: 'vitc',
-    kind: 'jar',
-    name: 'С витамином С, без вкуса',
-    flavour: 'Нейтральный',
-    meta: 'Без вкуса и запаха',
-    course: 'курс 1,5 месяца',
-    weight: '0,5 кг',
-    price: 2700,
-    was: 3000,
-    img: asset('/media/p/t-vitc.jpg'),
-    gallery: G.vitc,
-    tone: 'var(--gold)',
-    note: 'Чистое желе без цвета, вкуса и запаха. Можно есть ложкой или растворить в чём угодно.',
-  },
-
+/**
+ * The shelf, in the order it is laid out. Jars first, sets last: the page
+ * reads as five tastes and then a way to buy three of them.
+ */
+const SHELF: { id: string; kind: Product['kind']; tone: string; gallery: string[]; text: Editable }[] = [
+  { id: 'smuzi', kind: 'jar', tone: 'var(--cherry)', gallery: G.smuzi, text: smuzi },
+  { id: 'granat', kind: 'jar', tone: 'var(--cherry)', gallery: G.granat, text: granat },
+  { id: 'mango', kind: 'jar', tone: 'var(--orange)', gallery: G.mango, text: mango },
+  { id: 'cherry', kind: 'jar', tone: '#8e1f38', gallery: G.cherry, text: cherry },
+  { id: 'vitc', kind: 'jar', tone: 'var(--gold)', gallery: G.vitc, text: vitc },
   {
     id: 'set-three-a',
     kind: 'set',
-    name: 'Манго · черешня · гранат',
-    flavour: 'Три вкуса',
-    meta: 'С витамином С',
-    course: 'курс 4,5 месяца',
-    weight: '3 × 500 г',
-    price: 7500,
-    was: 8100,
-    img: asset('/media/p/t-set-three-a.jpg'),
-    gallery: [...G.trio, ...G.mango.slice(1, 6), ...G.cherry.slice(1, 4)],
-    juice: 'натуральные соки манго и апельсина, граната, черешни',
     tone: 'var(--green-3)',
-    note: 'Три сока в одном заказе — если ещё не решили, какой вкус ваш.',
+    gallery: [...G.trio, ...G.mango.slice(1, 6), ...G.cherry.slice(1, 4)],
+    text: setThreeA,
   },
   {
     id: 'set-three-b',
     kind: 'set',
-    name: 'Манго · черешня · клубника',
-    flavour: 'Три вкуса',
-    meta: 'С витамином С',
-    course: 'курс 4,5 месяца',
-    weight: '3 × 500 г',
-    price: 7500,
-    was: 8100,
-    img: asset('/media/p/t-set-three-b.jpg'),
-    gallery: [...G.trio, ...G.smuzi.slice(1, 6), ...G.cherry.slice(1, 4)],
-    juice: 'натуральные соки манго и апельсина, черешни, клубники',
     tone: 'var(--green-3)',
-    note: 'Тот же набор, но с клубничным смузи вместо граната.',
+    gallery: [...G.trio, ...G.smuzi.slice(1, 6), ...G.cherry.slice(1, 4)],
+    text: setThreeB,
   },
 ]
 
+/**
+ * The catalogue is edited by someone who cannot read a stack trace, through a
+ * form that will happily accept an empty name or a price of nothing. The build
+ * is the last place a bad value can be stopped before it is a wrong price in
+ * front of a customer, so it is stopped here, by the file it came from.
+ */
+function check({ id, text }: { id: string; text: Editable }): Editable {
+  const where = `src/content/products/${id}.json`
+  const fail = (what: string) => {
+    throw new Error(`Каталог: ${what}. Проверьте файл ${where} — исправьте и сохраните заново.`)
+  }
+
+  for (const field of ['name', 'flavour', 'meta', 'course', 'weight', 'note'] as const) {
+    if (typeof text[field] !== 'string' || !text[field].trim()) fail(`поле «${field}» пустое`)
+  }
+  if (!Number.isInteger(text.price) || text.price <= 0) fail('цена должна быть целым числом больше нуля')
+  if (text.was !== undefined) {
+    if (!Number.isInteger(text.was) || text.was <= 0) fail('старая цена должна быть целым числом больше нуля')
+    if (text.was <= text.price) fail('старая цена должна быть больше текущей, иначе скидка не имеет смысла')
+  }
+
+  return text
+}
+
+export const PRODUCTS: Product[] = SHELF.map(({ id, kind, tone, gallery, text }) => ({
+  ...check({ id, text }),
+  id,
+  kind,
+  tone,
+  gallery,
+  img: asset(`/media/p/t-${id}.jpg`),
+}))
+
 export const FREE_DELIVERY_FROM = 5400
 
-export const rub = (n: number) => n.toLocaleString('ru-RU').replace(/ /g, ' ') + ' ₽'
+export const rub = (n: number) => n.toLocaleString('ru-RU').replace(/ /g, ' ') + ' ₽'

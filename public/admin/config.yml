@@ -1,0 +1,91 @@
+# Настройки админки. Правится разработчиком, не через саму админку.
+#
+# Публикация здесь — это коммит в репозиторий: вы нажимаете «Сохранить»,
+# GitHub Actions пересобирает сайт, и примерно через минуту правка на сайте.
+# Каждая версия остаётся в истории, откатить можно любую.
+
+backend:
+  name: github
+  repo: artemida2/collagen-live-storefront
+  branch: master
+  # Вход только по личному токену: он остаётся в вашем браузере и никуда,
+  # кроме самого GitHub, не отправляется. Сторонних сервисов в цепочке нет.
+  auth_methods: [token]
+  commit_messages:
+    update: 'Правка из админки: {{collection}} · {{slug}}'
+    uploadMedia: 'Загрузка файла из админки: {{path}}'
+    deleteMedia: 'Удаление файла из админки: {{path}}'
+
+site_url: https://crimeacollagen.ru
+app_title: Collagen Live · управление сайтом
+logo_url: /favicon.svg
+
+# Куда складывать картинки, загруженные через админку.
+media_folder: public/media/pages
+public_folder: /media/pages
+
+collections:
+  - name: products
+    label: Товары и цены
+    label_singular: Товар
+    folder: src/content/products
+    extension: json
+    format: json
+    # Добавление и удаление товаров закрыто намеренно: у каждого вкуса девять
+    # кадров галереи и свой цвет карточки, они живут в коде. Новый вкус
+    # заводится разработчиком, здесь правится всё остальное.
+    create: false
+    delete: false
+    identifier_field: name
+    summary: '{{name}} · {{price}} ₽'
+    fields:
+      - name: name
+        label: Название
+        widget: string
+        hint: Так товар подписан в каталоге и в корзине.
+      - name: price
+        label: Цена
+        widget: number
+        value_type: int
+        min: 1
+        after_input: ₽
+        hint: Целое число, без пробелов и без знака рубля.
+      - name: was
+        label: Старая цена
+        widget: number
+        value_type: int
+        min: 1
+        required: false
+        after_input: ₽
+        hint: Зачёркнутая цена рядом с текущей. Должна быть больше текущей. Оставьте пустым, если скидки нет.
+      - name: flavour
+        label: Вкус
+        widget: string
+        hint: Одно-два слова. Показывается на плашке вкуса.
+      - name: meta
+        label: Подпись под названием
+        widget: string
+        hint: Например «С натуральным соком» или «Пищевой коллаген в желе».
+      - name: course
+        label: Длительность курса
+        widget: string
+        hint: Например «курс 1,5 месяца».
+      - name: weight
+        label: Вес
+        widget: string
+        hint: Например «0,5 кг» или «3 × 500 г».
+      - name: juice
+        label: Сок в составе
+        widget: string
+        required: false
+        hint: Оставьте пустым для вкуса без сока.
+      - name: note
+        label: Описание в карточке
+        widget: text
+        hint: Две-три строки живым языком. Не обещайте лечения — это БАД, а не лекарство.
+      - name: hit
+        label: Пометка «хит»
+        widget: boolean
+        required: false
+        default: false
+        hint: Плашка на карточке. Разумно держать её ровно на одном товаре.
