@@ -1,35 +1,39 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import { FREE_DELIVERY_FROM, rub } from '../data/catalog'
-import type { CartApi } from '../lib/hooks'
+import { useScrollLock, type CartApi } from '../lib/hooks'
 
 export default function CartDrawer({
   open,
   onClose,
   cart,
+  onDoc,
+  docOpen,
 }: {
   open: boolean
   onClose: () => void
   cart: CartApi
+  onDoc: (id: string) => void
+  /** A legal document sits above the drawer; while it is up, Escape is its. */
+  docOpen: boolean
 }) {
   const [sent, setSent] = useState(false)
+  const [agreed, setAgreed] = useState(false)
   const [form, setForm] = useState({ name: '', phone: '', city: '' })
 
   useEffect(() => {
-    if (!open) return
+    if (!open || docOpen) return
     const esc = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
     addEventListener('keydown', esc)
     return () => removeEventListener('keydown', esc)
-  }, [open, onClose])
+  }, [open, docOpen, onClose])
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('is-locked', open)
-    return () => document.documentElement.classList.remove('is-locked')
-  }, [open])
+  useScrollLock(open)
 
   const left = Math.max(0, FREE_DELIVERY_FROM - cart.total)
   const pct = Math.min(1, cart.total / FREE_DELIVERY_FROM)
-  const valid = form.name.trim().length > 1 && form.phone.replace(/\D/g, '').length >= 10
+  const valid =
+    form.name.trim().length > 1 && form.phone.replace(/\D/g, '').length >= 10 && agreed
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -88,6 +92,7 @@ export default function CartDrawer({
                   onClick={() => {
                     cart.clear()
                     setSent(false)
+                    setAgreed(false)
                     onClose()
                   }}
                 >
@@ -96,7 +101,9 @@ export default function CartDrawer({
               </div>
             ) : cart.items.length === 0 ? (
               <div className="drawer__empty">
-                <p className="prose">В корзине пока пусто. Начните с клубничного смузи — это самый заказываемый вкус.</p>
+                <p className="prose">
+                  В корзине пока пусто. Начните с клубничного смузи — это самый заказываемый вкус.
+                </p>
                 <button className="btn btn--ghost" onClick={onClose}>
                   <span>Вернуться к вкусам</span>
                 </button>
@@ -173,16 +180,37 @@ export default function CartDrawer({
                     <input
                       value={form.city}
                       onChange={(e) => setForm({ ...form, city: e.target.value })}
-                      placeholder="Куда везём"
+                      placeholder="Город или посёлок в Крыму"
                       autoComplete="address-level2"
                     />
+                  </label>
+
+                  <label className="consent">
+                    <input
+                      type="checkbox"
+                      checked={agreed}
+                      onChange={(e) => setAgreed(e.target.checked)}
+                    />
+                    <span>
+                      Согласен(-на) на обработку персональных данных и принимаю условия{' '}
+                      <button type="button" className="consent__link" onClick={() => onDoc('offer')}>
+                        публичной оферты
+                      </button>{' '}
+                      и{' '}
+                      <button type="button" className="consent__link" onClick={() => onDoc('privacy')}>
+                        политики обработки персональных данных
+                      </button>
+                    </span>
                   </label>
 
                   <button className="btn btn--solid btn--wide" disabled={!valid} type="submit">
                     <span>Оформить заявку</span>
                   </button>
                   <p className="mono drawer__fine">
-                    Оплата не проводится на сайте. Менеджер перезвонит и подтвердит заказ
+                    Оплата не проводится на сайте. Менеджер перезвонит и подтвердит заказ.{' '}
+                    <button type="button" className="consent__link" onClick={() => onDoc('terms')}>
+                      Доставка, оплата и возврат
+                    </button>
                   </p>
                 </form>
               </>

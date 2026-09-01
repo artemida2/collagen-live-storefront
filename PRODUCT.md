@@ -50,27 +50,25 @@ pickup, and the order is confirmed by a manager on the phone rather than by onli
 
 ## Capabilities and Constraints
 
-Catalogue, prices and product facts are the manufacturer's, confirmed from collagen-live.ru on
-2026-08-30. Prices are to be shown exactly as the main site shows them.
+Product facts are the manufacturer's, confirmed from collagen-live.ru on 2026-08-30. Prices are the
+Crimean distributor's own: 2 700 ₽ per unit on every position.
 
-**Single jars, 0.5 kg, course of 1.5 months — 2 200 ₽ (was 3 000 ₽):**
+**Single jars, 0.5 kg, course of 1.5 months — 2 700 ₽ (manufacturer's list price 3 000 ₽):**
 
-- Райские яблоки и груши (apple + pear)
 - Клубничный смузи (strawberry smoothie) — the manufacturer marks this one ХИТ
 - С натуральным соком граната (pomegranate)
 - С натуральным соком манго и апельсина (mango + orange)
 - С натуральным соком черешни (sweet cherry)
-- С витамином С, без вкуса и запаха (vitamin C, unflavoured)
+- С витамином С, без вкуса и запаха (vitamin C, unflavoured) — 0.5 kg like every other flavour
 
-**Sets:**
+**Sets — three jars only, this is the volume discount ("скидка от 3 банок"):**
 
-- Клубничный смузи 2 × 500 г — 4 000 ₽
-- Черешня 2 × 500 г — 4 000 ₽
-- Гранат 2 × 500 г — 4 000 ₽
-- Манго и апельсин 2 × 500 г — 4 000 ₽
-- С витамином С, 1 кг, курс на 3 месяца — 4 000 ₽
-- Манго + черешня + гранат, 3 × 500 г, с витамином С — 5 800 ₽
-- Манго + черешня + клубничный смузи, 3 × 500 г, с витамином С — 5 800 ₽
+- Манго + черешня + гранат, 3 × 500 г, с витамином С — 7 500 ₽ (against 8 100 ₽ bought singly)
+- Манго + черешня + клубничный смузи, 3 × 500 г, с витамином С — 7 500 ₽
+
+**Positions that do not exist and must not reappear:** the apple-and-pear jar, every two-jar set,
+and the 1 kg vitamin-C jar. The unflavoured vitamin-C product is 0.5 kg at the same price as the
+rest of the line.
 
 **Composition and claims, all as published by the manufacturer:**
 
@@ -86,16 +84,26 @@ Catalogue, prices and product facts are the manufacturer's, confirmed from colla
 - Made from certified **poultry** raw material.
 - Stated benefits: skin, hair, nails, joints, muscles, bones, blood vessels, immunity.
 
-**Distributor status:** an authorised distributor of Collagen Live, warehouse in Crimea, shipping
-across Russia. The Crimean base is a fact but must not be foregrounded — the surface reads as an
-all-Russia distributor. Free delivery from 8 000 ₽ (the manufacturer's threshold).
+**Distributor status:** the official distributor of Collagen Live **in Crimea**, warehouse on the
+peninsula, delivery across Crimea and Sevastopol. The Crimean territory is the whole point and is
+foregrounded everywhere in the copy. Free delivery from 5 400 ₽ — the price of two jars. Delivery
+beyond the peninsula only by arrangement with the manager. The site is retail; "оптом и в розницу"
+is gone.
 
-**Undecided / must not be invented:** the distributor's own trading name, phone, e-mail, legal
-entity, INN/OGRNIP and warehouse address. The user chose to ship these as clearly marked
-placeholders and replace them later. Real delivery timings per region are also unknown.
+**Seller identity** — real, in `src/data/legal.ts`: ИП Тищенко Ирина Геннадьевна, ИНН 910802393124,
+ОГРНИП 315910200037220, телефон +7 978 303-94-75, with bank requisites.
 
-**Cart:** a real cart — add, quantity, running total, the 8 000 ₽ free-delivery threshold — ending in
-an order form (name, phone, city) with a manager call-back. No online payment.
+**Legal documents**, published as required by Russian law and reachable from the footer and the
+order form: the public offer (art. 437 CC RF, art. 26.1 of the Consumer Rights Protection Act,
+Government Decree 2463 of 31.12.2020), the written delivery/payment/return notice, the personal-data
+policy (art. 18.1 of Federal Law 152-FZ) and the seller's requisites. The order form cannot be
+submitted without an explicit consent tick (art. 9 of 152-FZ).
+
+**Undecided / must not be invented:** the distributor's postal address — the law wants a seller
+address published and none has been supplied. Real delivery timings per city are also unknown.
+
+**Cart:** a real cart — add, quantity, running total, the 5 400 ₽ free-delivery threshold — ending in
+an order form (name, phone, city, consent) with a manager call-back. No online payment.
 
 ## Brand Commitments
 

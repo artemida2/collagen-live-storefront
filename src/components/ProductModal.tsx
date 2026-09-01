@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useCallback, useEffect, useState } from 'react'
 import { rub, type Product } from '../data/catalog'
 import { COMPOSITION_BASE, CONTRA, DETAILS, HOWTO, INDICATIONS } from '../data/content'
+import { useScrollLock } from '../lib/hooks'
 
 type Panel = 'howto' | 'details' | 'composition' | 'care'
 
@@ -23,11 +24,14 @@ export default function ProductModal({
   onClose,
   onAdd,
   inCart,
+  docOpen,
 }: {
   product: Product | null
   onClose: () => void
   onAdd: (id: string) => void
   inCart: boolean
+  /** A legal document sits above the product panel; Escape is its while open. */
+  docOpen: boolean
 }) {
   const [i, setI] = useState(0)
   const [open, setOpen] = useState<Panel | null>('howto')
@@ -41,7 +45,7 @@ export default function ProductModal({
   const go = useCallback((d: number) => setI((v) => (n ? (v + d + n) % n : 0)), [n])
 
   useEffect(() => {
-    if (!product) return
+    if (!product || docOpen) return
     const key = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
       if (e.key === 'ArrowRight') go(1)
@@ -49,12 +53,9 @@ export default function ProductModal({
     }
     addEventListener('keydown', key)
     return () => removeEventListener('keydown', key)
-  }, [product, onClose, go])
+  }, [product, docOpen, onClose, go])
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('is-locked', !!product)
-    return () => document.documentElement.classList.remove('is-locked')
-  }, [product])
+  useScrollLock(!!product)
 
   return (
     <AnimatePresence>

@@ -5,7 +5,7 @@ const FACTS: [string, string][] = [
   ['96 %', 'усвоение по данным производителя'],
   ['3 типа', 'коллагена I, II и III'],
   ['19 + 16', 'аминокислот и микроэлементов'],
-  ['8 000 ₽', 'бесплатная доставка по России от этой суммы'],
+  ['5 400 ₽', 'бесплатная доставка по Крыму от этой суммы'],
 ]
 
 const up = {
@@ -72,7 +72,7 @@ export default function Hero({ started, onGo }: { started: boolean; onGo: (id: s
             </button>
 
             <span className="hero__price">
-              <span className="hero__price-p num">2 200 ₽</span>
+              <span className="hero__price-p num">2 700 ₽</span>
               <s className="hero__price-was num">3 000 ₽</s>
               <span className="mono">0,5 кг · курс на 1,5 месяца</span>
             </span>

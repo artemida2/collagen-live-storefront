@@ -9,6 +9,7 @@ import Film from './components/Film'
 import Footer from './components/Footer'
 import Grain from './components/Grain'
 import Hero from './components/Hero'
+import LegalModal from './components/LegalModal'
 import Plate from './components/Plate'
 import Preloader from './components/Preloader'
 import ProductModal from './components/ProductModal'
@@ -27,6 +28,7 @@ export default function App() {
   const [ready, setReady] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
   const [shown, setShown] = useState<Product | null>(null)
+  const [doc, setDoc] = useState<string | null>(null)
 
   const onReady = useCallback(() => setReady(true), [])
   const go = useCallback((id: string) => scrollToId(id, lenis.current), [lenis])
@@ -63,7 +65,7 @@ export default function App() {
           <Delivery />
         </main>
 
-        <Footer onGo={go} onCart={() => setCartOpen(true)} />
+        <Footer onGo={go} onCart={() => setCartOpen(true)} onDoc={setDoc} />
       </div>
 
       <ProductModal
@@ -71,8 +73,16 @@ export default function App() {
         onClose={() => setShown(null)}
         onAdd={add}
         inCart={shown ? inCart(shown.id) : false}
+        docOpen={doc !== null}
       />
-      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} cart={cart} />
+      <CartDrawer
+        open={cartOpen}
+        onClose={() => setCartOpen(false)}
+        cart={cart}
+        onDoc={setDoc}
+        docOpen={doc !== null}
+      />
+      <LegalModal docId={doc} onOpen={setDoc} onClose={() => setDoc(null)} />
       <Preloader ready={ready} reduced={reduced} />
     </>
   )

@@ -1,10 +1,11 @@
 import { motion } from 'motion/react'
 import { useState } from 'react'
-import { FAQ, PLACEHOLDER } from '../data/content'
+import { FAQ } from '../data/content'
+import { COMPANY } from '../data/legal'
 
 const POINTS: [string, string][] = [
-  ['Доставка по России', 'Курьером и в пункты выдачи. Отгружаем со своего склада, заказ подтверждает менеджер по телефону.'],
-  ['Бесплатно от 8 000 ₽', 'Порог производителя: при заказе на 8 000 ₽ и больше доставку не оплачиваете.'],
+  ['Доставка по всему Крыму', 'Симферополь, Севастополь, Ялта, Евпатория, Феодосия, Керчь и дальше по полуострову. Отгружаем со своего склада, заказ подтверждает менеджер по телефону.'],
+  ['Бесплатно от 5 400 ₽', 'При заказе на 5 400 ₽ и больше — это две банки — доставку по Крыму не оплачиваете.'],
   ['Холодная логистика', 'Продукт хранится при +2…+6 °C, поэтому едет в термопакете с хладоэлементом — как отгружает производитель.'],
   ['Оплата после подтверждения', 'Онлайн-оплаты на сайте нет: менеджер перезванивает, подтверждает состав заказа и сроки.'],
 ]
@@ -20,7 +21,7 @@ export default function Delivery() {
             <span className="sec-head__n">07</span>
             <span>Доставка и вопросы</span>
           </div>
-          <span className="mono">{PLACEHOLDER.hours}</span>
+          <span className="mono">{COMPANY.hours}</span>
         </div>
 
         <div className="del__grid">
@@ -32,7 +33,7 @@ export default function Delivery() {
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
-              Отгружаем по всей России
+              Отгружаем по всему Крыму
             </motion.h2>
 
             <ul className="del__points">

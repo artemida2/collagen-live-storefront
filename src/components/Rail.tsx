@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { PLACEHOLDER } from '../data/content'
+import { COMPANY } from '../data/legal'
 
 const NAV: [string, string][] = [
   ['Почему живой', 'compare'],
@@ -31,7 +31,7 @@ export default function Rail({
       <div className="rail__in">
         <button className="rail__brand" onClick={() => onGo('top')}>
           <span className="rail__mark">Collagen Live</span>
-          <span className="mono rail__sub">официальный дистрибьютор</span>
+          <span className="mono rail__sub">{COMPANY.role}</span>
         </button>
 
         <nav className="rail__nav">
@@ -43,8 +43,8 @@ export default function Rail({
         </nav>
 
         <div className="rail__right">
-          <a className="mono rail__tel" href={`tel:${PLACEHOLDER.phone.replace(/[^+\d]/g, '')}`}>
-            {PLACEHOLDER.phone}
+          <a className="mono rail__tel" href={`tel:${COMPANY.phoneHref}`}>
+            {COMPANY.phone}
           </a>
           <button className="rail__cart" onClick={onCart} aria-label="Открыть корзину">
             <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">

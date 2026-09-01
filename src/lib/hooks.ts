@@ -60,6 +60,27 @@ export function scrollToId(id: string, lenis?: Lenis | null) {
   else el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
+/**
+ * Scroll lock, ref-counted. Three overlays can be open at once — the cart, a
+ * product and a legal document — so the last one to close must not unlock the
+ * page while another is still up.
+ */
+let locks = 0
+export function useScrollLock(active: boolean) {
+  useEffect(() => {
+    if (!active) return
+    locks += 1
+    document.documentElement.classList.add('is-locked')
+    return () => {
+      locks -= 1
+      if (locks <= 0) {
+        locks = 0
+        document.documentElement.classList.remove('is-locked')
+      }
+    }
+  }, [active])
+}
+
 /** Pauses a video whenever it leaves the viewport — never more than one decode at a time. */
 export function usePlayInView<T extends HTMLVideoElement>(active: boolean) {
   const ref = useRef<T>(null)
@@ -98,7 +119,7 @@ export type CartApi = {
   clear: () => void
 }
 
-const STORE = 'cl-cart-v1'
+const STORE = 'cl-cart-v2'
 
 export function useCart(): CartApi {
   const [lines, setLines] = useState<Line[]>(() => {

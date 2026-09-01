@@ -6,7 +6,7 @@ type Tab = 'jar' | 'set'
 
 const TABS: [Tab, string, string][] = [
   ['jar', 'Банки 0,5 кг', 'курс на 1,5 месяца'],
-  ['set', 'Сеты', 'курс от 3 месяцев'],
+  ['set', 'Сеты из трёх банок', 'курс на 4,5 месяца'],
 ]
 
 function Card({ p, added, onAdd, onOpen }: { p: Product; added: boolean; onAdd: () => void; onOpen: () => void }) {
@@ -79,7 +79,7 @@ export default function Shop({
             <span className="sec-head__n">05</span>
             <span>Вкусы и объёмы</span>
           </div>
-          <span className="mono">Цены производителя · доставка по России</span>
+          <span className="mono">2 700 ₽ за банку · скидка от трёх банок</span>
         </div>
 
         <div className="shop__top">
@@ -90,7 +90,7 @@ export default function Shop({
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            Одно желе, шесть вкусов
+            Одно желе, пять вкусов
           </motion.h2>
 
           <div className="shop__tabs" role="tablist">
@@ -118,7 +118,8 @@ export default function Shop({
         </ul>
 
         <p className="mono shop__note">
-          Состав, названия и цены — производителя Collagen Live. Бесплатная доставка при заказе от 8 000 ₽
+          Состав и названия — производителя Collagen Live. Сет из трёх банок дешевле поштучной покупки на
+          600 ₽. Бесплатная доставка по Крыму при заказе от 5 400 ₽
         </p>
       </div>
     </section>
