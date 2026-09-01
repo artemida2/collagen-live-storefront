@@ -1,7 +1,9 @@
 import { AnimatePresence, motion } from 'motion/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FREE_DELIVERY_FROM, rub } from '../data/catalog'
+import { COMPANY } from '../data/legal'
 import { useScrollLock, type CartApi } from '../lib/hooks'
+import { sendOrder } from '../lib/relay'
 
 export default function CartDrawer({
   open,
@@ -19,7 +21,11 @@ export default function CartDrawer({
 }) {
   const [sent, setSent] = useState(false)
   const [agreed, setAgreed] = useState(false)
-  const [form, setForm] = useState({ name: '', phone: '', city: '' })
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [form, setForm] = useState({ name: '', phone: '', city: '', comment: '' })
+  /** Bot trap: the receiver silently drops anything that arrives with it filled. */
+  const hp = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (!open || docOpen) return
@@ -33,12 +39,22 @@ export default function CartDrawer({
   const left = Math.max(0, FREE_DELIVERY_FROM - cart.total)
   const pct = Math.min(1, cart.total / FREE_DELIVERY_FROM)
   const valid =
-    form.name.trim().length > 1 && form.phone.replace(/\D/g, '').length >= 10 && agreed
+    form.name.trim().length > 1 &&
+    form.phone.replace(/\D/g, '').length >= 10 &&
+    form.city.trim().length > 1 &&
+    agreed
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!valid) return
-    setSent(true)
+    if (!valid || sending) return
+    setSending(true)
+    setError(null)
+    const res = await sendOrder(form, cart, hp.current?.value ?? '')
+    setSending(false)
+    /* Never show "принято" on anything but a confirmed receipt, and never
+       clear the cart on failure — the person has to be able to try again. */
+    if (res.ok) setSent(true)
+    else setError(res.message)
   }
 
   return (
@@ -84,15 +100,13 @@ export default function CartDrawer({
                   {form.name}, спасибо. Менеджер перезвонит на {form.phone} в рабочие часы, подтвердит состав
                   заказа и сроки доставки{form.city ? ` в город ${form.city}` : ''}.
                 </p>
-                <p className="mono drawer__demo">
-                  Демонстрационная версия: форма пока не отправляет данные — нужен бэкенд или интеграция с CRM
-                </p>
                 <button
                   className="btn btn--solid btn--wide"
                   onClick={() => {
                     cart.clear()
                     setSent(false)
                     setAgreed(false)
+                    setForm({ name: '', phone: '', city: '', comment: '' })
                     onClose()
                   }}
                 >
@@ -184,6 +198,24 @@ export default function CartDrawer({
                       autoComplete="address-level2"
                     />
                   </label>
+                  <label className="field">
+                    <span className="mono">Комментарий — необязательно</span>
+                    <input
+                      value={form.comment}
+                      onChange={(e) => setForm({ ...form, comment: e.target.value })}
+                      placeholder="Когда удобно принять заказ"
+                    />
+                  </label>
+
+                  <input
+                    ref={hp}
+                    type="text"
+                    name="_hp"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="hp"
+                  />
 
                   <label className="consent">
                     <input
@@ -203,9 +235,16 @@ export default function CartDrawer({
                     </span>
                   </label>
 
-                  <button className="btn btn--solid btn--wide" disabled={!valid} type="submit">
-                    <span>Оформить заявку</span>
+                  <button className="btn btn--solid btn--wide" disabled={!valid || sending} type="submit">
+                    <span>{sending ? 'Отправляем…' : 'Оформить заявку'}</span>
                   </button>
+
+                  {error && (
+                    <p className="drawer__err" role="alert">
+                      {error}{' '}
+                      <a href={`tel:${COMPANY.phoneHref}`}>{COMPANY.phone}</a>
+                    </p>
+                  )}
                   <p className="mono drawer__fine">
                     Оплата не проводится на сайте. Менеджер перезвонит и подтвердит заказ.{' '}
                     <button type="button" className="consent__link" onClick={() => onDoc('terms')}>

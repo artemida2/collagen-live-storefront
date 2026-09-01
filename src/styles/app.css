@@ -901,6 +901,17 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 .field input::placeholder { color: rgba(28, 27, 23, 0.62); } /* 4.67:1 */
 .field input:focus { border-color: var(--ink); outline: none; }
 .drawer__fine { font-size: 9.5px; line-height: 1.6; }
+/* Bot trap. Off-canvas rather than display:none — some bots skip hidden fields. */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.drawer__err {
+  padding: 11px 13px;
+  border: var(--hair) solid rgba(180, 34, 47, 0.32);
+  border-radius: 3px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.drawer__err a { color: var(--cherry); font-weight: 700; white-space: nowrap; text-decoration: underline; text-underline-offset: 2px; }
 .consent { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 9px; align-items: start; cursor: pointer; }
 .consent input {
   appearance: none;
@@ -942,14 +953,7 @@ html.is-held, html.is-held body, html.is-locked, html.is-locked body { overflow:
 }
 .drawer__tick svg { width: 20px; height: 20px; }
 .drawer__done-h { font-family: var(--f-display); font-weight: 400; font-size: 26px; letter-spacing: -0.015em; }
-.drawer__demo {
-  padding: 10px 12px;
-  border: var(--hair) dashed rgba(226, 112, 27, 0.5);
-  border-radius: 3px;
-  color: var(--orange);
-  font-size: 9.5px;
-  line-height: 1.7;
-}
+
 
 /* ── 15. reduced motion ────────────────────────────────────────────── */
 
