@@ -1,8 +1,18 @@
 import { COMPANY, DOCS } from '../data/legal'
 
-const COLS: [string, string[]][] = [
-  ['Каталог', ['Банки 0,5 кг', 'Сеты из трёх банок', 'Без вкуса с витамином C']],
-  ['О продукте', ['Почему живой', 'Технология Multiferment DDL', 'Состав', 'Как принимать']],
+const CATALOGUE = ['Банки 0,5 кг', 'Сеты из трёх банок', 'Без вкуса с витамином C']
+
+/**
+ * Real addresses, not scroll targets. These pages are built separately from
+ * content the distributor writes at /admin, and the footer is the only place
+ * the landing links to them — without it a crawler reaches them through the
+ * sitemap alone, which is the weakest signal there is.
+ */
+const PAGES: [string, string][] = [
+  ['Доставка по Крыму', '/dostavka/'],
+  ['Порошок или желе', '/razbor/poroshok-ili-zhele/'],
+  ['Как хранить летом', '/kak/kak-hranit-letom/'],
+  ['Цены', '/ceny/price/'],
 ]
 
 export default function Footer({
@@ -46,20 +56,31 @@ export default function Footer({
           </p>
         </div>
 
-        {COLS.map(([h, items]) => (
-          <nav key={h} className="foot__col">
-            <h3 className="mono foot__col-h">{h}</h3>
-            <ul>
-              {items.map((it) => (
-                <li key={it}>
-                  <button className="foot__link" onClick={() => onGo('shop')}>
-                    {it}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        ))}
+        <nav className="foot__col">
+          <h3 className="mono foot__col-h">Каталог</h3>
+          <ul>
+            {CATALOGUE.map((it) => (
+              <li key={it}>
+                <button className="foot__link" onClick={() => onGo('shop')}>
+                  {it}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav className="foot__col">
+          <h3 className="mono foot__col-h">Справочная</h3>
+          <ul>
+            {PAGES.map(([title, href]) => (
+              <li key={href}>
+                <a className="foot__link" href={href}>
+                  {title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         <nav className="foot__col">
           <h3 className="mono foot__col-h">Документы</h3>

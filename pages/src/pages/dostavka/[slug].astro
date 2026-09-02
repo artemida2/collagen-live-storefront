@@ -1,0 +1,117 @@
+---
+import { getCollection, render } from 'astro:content'
+import Page from '../../layouts/Page.astro'
+
+/**
+ * A-01 · one town the distributor delivers to. The template exists to be
+ * filled several times over, but it earns its place only while the towns
+ * differ in substance: identical pages with the name swapped are read as
+ * doorways and cost the whole domain, not just the page.
+ */
+export async function getStaticPaths() {
+  const towns = await getCollection('goroda')
+  return towns.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
+}
+
+const { entry } = Astro.props
+const d = entry.data
+const { Content } = await render(entry)
+
+const faqSchema = d.faq?.length
+  ? [
+      {
+        '@type': 'FAQPage',
+        mainEntity: d.faq.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      },
+    ]
+  : []
+
+const others = (await getCollection('goroda'))
+  .filter((t) => t.id !== entry.id)
+  .sort((a, b) => a.data.order - b.data.order)
+---
+
+<Page
+  title={d.seoTitle}
+  description={d.seoDescription}
+  noindex={d.noindex}
+  crumbs={[{ label: 'Доставка', href: '/dostavka/' }, { label: d.city }]}
+  schema={faqSchema}
+>
+  <article class="p-doc">
+    <h1 class="disp p-h1">{d.heading}</h1>
+    <p class="p-lede">{d.lede}</p>
+
+    <div class="p-block">
+      <div class="p-block__h">
+        <span class="mono">Условия</span>
+        <h2>Доставка {d.cityIn}</h2>
+      </div>
+
+      <dl class="p-facts">
+        <div class="p-facts__row">
+          <dt class="mono">Срок</dt>
+          <dd class="p-facts__v">{d.deliveryTime}</dd>
+        </div>
+        <div class="p-facts__row">
+          <dt class="mono">Стоимость</dt>
+          <dd class="p-facts__v">{d.deliveryPrice}</dd>
+        </div>
+        {d.pickup && (
+          <div class="p-facts__row">
+            <dt class="mono">Самовывоз</dt>
+            <dd class="p-facts__v">{d.pickup}</dd>
+          </div>
+        )}
+        {d.heat && (
+          <div class="p-facts__row">
+            <dt class="mono">В жару</dt>
+            <dd class="p-facts__v">{d.heat}</dd>
+          </div>
+        )}
+      </dl>
+    </div>
+
+    <div class="p-body">
+      <Content />
+    </div>
+
+    {d.faq?.length && (
+      <div class="p-block">
+        <div class="p-block__h">
+          <span class="mono">Вопросы</span>
+          <h2>Что спрашивают {d.cityIn}</h2>
+        </div>
+        <div class="p-qa">
+          {d.faq.map((f) => (
+            <div class="p-qa__item">
+              <p class="p-qa__q">{f.q}</p>
+              <p class="p-qa__a">{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {others.length > 0 && (
+      <nav class="p-more">
+        <div class="p-block__h">
+          <span class="mono">Ещё</span>
+          <h2>Другие города Крыма</h2>
+        </div>
+        <div class="p-more__list">
+          {others.map((t) => (
+            <a href={`/dostavka/${t.id}/`}>
+              <span class="p-more__t">{t.data.city}</span>
+              <span class="mono">{t.data.deliveryTime}</span>
+            </a>
+          ))}
+        </div>
+      </nav>
+    )}
+  </article>
+</Page>

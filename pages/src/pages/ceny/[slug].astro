@@ -1,0 +1,62 @@
+---
+import { getCollection, render } from 'astro:content'
+import Page from '../../layouts/Page.astro'
+
+/**
+ * A-04 · the price list. The date it was last touched is printed on the page
+ * on purpose: a price list without one is read as possibly stale, and the
+ * whole point of putting it in the admin panel is that it stops being stale.
+ */
+export async function getStaticPaths() {
+  const items = await getCollection('ceny')
+  return items.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
+}
+
+const { entry } = Astro.props
+const d = entry.data
+const { Content } = await render(entry)
+
+const updated = d.updated.toLocaleDateString('ru-RU', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+})
+---
+
+<Page
+  title={d.seoTitle}
+  description={d.seoDescription}
+  noindex={d.noindex}
+  crumbs={[{ label: d.heading }]}
+>
+  <article class="p-doc">
+    <h1 class="disp p-h1">{d.heading}</h1>
+    <p class="p-lede">{d.lede}</p>
+
+    <div class="p-block p-price">
+      {d.groups.map((g) => (
+        <section class="p-price__group">
+          <h2 class="p-price__name">{g.name}</h2>
+          {g.note && <p class="p-price__note">{g.note}</p>}
+          {g.items.map((it) => (
+            <div class="p-price__row">
+              <div class="p-price__label">
+                {it.name}
+                {it.note && <small>{it.note}</small>}
+              </div>
+              <div class="p-price__v">{it.price}</div>
+            </div>
+          ))}
+        </section>
+      ))}
+    </div>
+
+    <p class="mono p-updated">Цены действительны на {updated}</p>
+
+    <div class="p-body">
+      <Content />
+    </div>
+
+    {d.footnote && <div class="p-warn">{d.footnote}</div>}
+  </article>
+</Page>

@@ -1,0 +1,144 @@
+---
+import { COMPANY } from '../../../src/data/legal.ts'
+import '../../../src/styles/tokens.css'
+import '../../../src/styles/base.css'
+import '../styles/pages.css'
+
+/**
+ * One shell for every content page. It deliberately does not carry the
+ * landing's fixed film, jar cut-out or smooth-scroll: those belong to a page
+ * someone scrolls through for pleasure, and these are pages someone reads to
+ * answer a question. What it does carry is the landing's paper, ink and three
+ * typefaces, so a visitor never doubts they are on the same site.
+ */
+
+interface Crumb {
+  label: string
+  href?: string
+}
+
+interface Props {
+  title: string
+  description: string
+  crumbs?: Crumb[]
+  noindex?: boolean
+  /** Extra schema.org nodes this page wants in its graph. */
+  schema?: unknown[]
+}
+
+const { title, description, crumbs = [], noindex = false, schema = [] } = Astro.props
+const SITE = 'https://crimeacollagen.ru'
+const canonical = new URL(Astro.url.pathname, SITE).href
+
+const trail = [{ label: 'Главная', href: '/' }, ...crumbs]
+
+const graph = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: c.label,
+      ...(c.href ? { item: new URL(c.href, SITE).href } : {}),
+    })),
+  },
+  ...schema,
+]
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F7F3EC" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Collagen Live · Крым" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${SITE}/media/plate-wide.jpg`} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spectral:wght@200;300;400;600&family=Geist+Mono:wght@300;400;500&family=Manrope:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })} />
+  </head>
+
+  <body>
+    <header class="p-rail">
+      <div class="p-rail__in shell">
+        <a class="p-rail__brand" href="/">
+          <span class="disp p-rail__mark">Collagen Live</span>
+          <span class="mono">официальный дистрибьютор в Крыму</span>
+        </a>
+        <a class="mono p-rail__tel num" href={`tel:${COMPANY.phoneHref}`}>{COMPANY.phone}</a>
+      </div>
+    </header>
+
+    <nav class="p-crumbs shell" aria-label="Хлебные крошки">
+      {trail.map((c, i) => (
+        <>
+          {i > 0 && <span class="p-crumbs__sep" aria-hidden="true">/</span>}
+          {c.href ? <a class="mono" href={c.href}>{c.label}</a> : <span class="mono p-crumbs__here">{c.label}</span>}
+        </>
+      ))}
+    </nav>
+
+    <main class="p-main shell">
+      <div class="p-layout">
+        <slot />
+
+        <aside class="p-side">
+          <div class="p-side__card">
+            <div class="p-side__row">
+              <span class="mono">Банка 0,5 кг</span>
+              <span class="p-side__v num">2 700 ₽ <small>курс 1,5 месяца</small></span>
+            </div>
+            <div class="p-side__row">
+              <span class="mono">Доставка по Крыму</span>
+              <span class="p-side__v num">от 5 400 ₽ <small>бесплатно</small></span>
+            </div>
+            <a class="p-side__btn" href="/#shop">Выбрать вкус</a>
+          </div>
+          <a class="mono p-side__tel num" href={`tel:${COMPANY.phoneHref}`}>{COMPANY.phone}</a>
+          <span class="mono">{COMPANY.hours}</span>
+        </aside>
+      </div>
+    </main>
+
+    <section class="p-cta on-green">
+      <div class="shell p-cta__in">
+        <h2 class="disp p-cta__h">Собрать курс на полтора месяца</h2>
+        <p class="prose">
+          Банка 0,5 кг — курс на 1,5 месяца. Доставка по всему Крыму,
+          бесплатно от 5 400 ₽.
+        </p>
+        <a class="p-btn" href="/#shop">Выбрать вкус</a>
+      </div>
+    </section>
+
+    <footer class="p-foot">
+      <div class="shell p-foot__in">
+        <p class="mono">{COMPANY.entityShort} · ИНН {COMPANY.inn}</p>
+        <p class="mono">
+          БАД. Не является лекарственным средством.
+          Перед применением проконсультируйтесь со специалистом.
+        </p>
+        <a class="mono p-foot__home" href="/">На главную</a>
+      </div>
+    </footer>
+  </body>
+</html>

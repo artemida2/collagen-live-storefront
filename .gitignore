@@ -10,3 +10,7 @@ Thumbs.db
 .impeccable/*
 !.impeccable/design.json
 !.impeccable/config.json
+
+# вторая сборка (страницы на Astro) и её кэш
+pages/dist/
+pages/.astro/

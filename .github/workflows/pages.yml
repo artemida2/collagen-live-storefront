@@ -23,9 +23,14 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            pages/package-lock.json
+      # Two projects: the React landing at the root and the Astro content
+      # pages under pages/. Both are installed here; `npm run build` builds
+      # them in turn and scripts/merge.mjs folds them into one dist.
       - run: npm ci
-      # public/CNAME points Pages at crimeacollagen.ru, so the site is served
-      # from the root of that domain and the default base is the right one
+      - run: npm ci --prefix pages
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

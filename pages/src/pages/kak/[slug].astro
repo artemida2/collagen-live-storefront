@@ -1,0 +1,85 @@
+---
+import { getCollection, render } from 'astro:content'
+import Page from '../../layouts/Page.astro'
+
+/**
+ * C-11 · the instruction. Steps are numbered because they are genuinely a
+ * sequence; the "а что если" block below them exists because the questions
+ * that actually reach the phone are never about the happy path.
+ */
+export async function getStaticPaths() {
+  const items = await getCollection('instrukcii')
+  return items.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
+}
+
+const { entry } = Astro.props
+const d = entry.data
+const { Content } = await render(entry)
+
+const faqSchema = d.ifThen?.length
+  ? [
+      {
+        '@type': 'FAQPage',
+        mainEntity: d.ifThen.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      },
+    ]
+  : []
+---
+
+<Page
+  title={d.seoTitle}
+  description={d.seoDescription}
+  noindex={d.noindex}
+  crumbs={[{ label: d.heading }]}
+  schema={faqSchema}
+>
+  <article class="p-doc">
+    <h1 class="disp p-h1">{d.heading}</h1>
+    <p class="p-lede">{d.lede}</p>
+
+    <div class="p-block">
+      <div class="p-block__h">
+        <span class="mono">По шагам</span>
+        <h2>Что делать</h2>
+      </div>
+      <div class="p-steps">
+        {d.steps.map((s, i) => (
+          <div class="p-step">
+            <span class="mono p-step__n num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {d.ifThen?.length && (
+      <div class="p-block">
+        <div class="p-block__h">
+          <span class="mono">А что если</span>
+          <h2>Когда пошло не так</h2>
+        </div>
+        <div class="p-qa">
+          {d.ifThen.map((f) => (
+            <div class="p-qa__item">
+              <p class="p-qa__q">{f.q}</p>
+              <p class="p-qa__a">{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div class="p-body">
+      <Content />
+    </div>
+
+    {d.warning && <div class="p-warn">{d.warning}</div>}
+  </article>
+</Page>

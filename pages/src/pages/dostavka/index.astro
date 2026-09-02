@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content'
+import Page from '../../layouts/Page.astro'
+
+/** The hub the town pages point back to, so none of them is an orphan. */
+const towns = (await getCollection('goroda')).sort((a, b) => a.data.order - b.data.order)
+---
+
+<Page
+  title="Доставка коллагена по Крыму — сроки и стоимость по городам"
+  description="Куда и за сколько дней доставляем Collagen Live Wellness: Симферополь, Севастополь, Ялта и весь полуостров. Бесплатно от 5 400 ₽, в термопакете с хладоэлементом."
+  crumbs={[{ label: 'Доставка' }]}
+>
+  <article class="p-doc">
+    <h1 class="disp p-h1">Доставка по Крыму</h1>
+    <p class="p-lede">
+      Возим со своего склада по всему полуострову. Продукт скоропортящийся,
+      поэтому едет в термопакете с хладоэлементом — выберите город, чтобы
+      увидеть сроки и условия.
+    </p>
+
+    <div class="p-block">
+      <div class="p-block__h">
+        <span class="mono">Города</span>
+        <h2>Куда возим</h2>
+      </div>
+      <div class="p-more__list">
+        {towns.map((t) => (
+          <a href={`/dostavka/${t.id}/`}>
+            <span class="p-more__t">{t.data.city}</span>
+            <span class="mono">{t.data.deliveryTime}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="p-warn">
+      <strong>Бесплатно от 5 400 ₽.</strong> Заказ меньше этой суммы — доставку
+      рассчитывает менеджер при подтверждении, отдельно по вашему адресу.
+    </div>
+  </article>
+</Page>

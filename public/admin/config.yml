@@ -89,3 +89,279 @@ collections:
         required: false
         default: false
         hint: Плашка на карточке. Разумно держать её ровно на одном товаре.
+
+  # ── Страницы ──────────────────────────────────────────────────────────
+  # Каждая коллекция — один шаблон. Поле «Адрес страницы» задаёт ссылку и
+  # заполняется латиницей: имя файла становится адресом, а кириллица в
+  # адресе превращается в нечитаемую строку из процентов.
+
+  - name: goroda
+    label: Города доставки
+    label_singular: Город
+    folder: content/goroda
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: "{{fields.address}}"
+    identifier_field: city
+    summary: "{{city}} — {{deliveryTime}}"
+    fields:
+      - name: address
+        label: Адрес страницы
+        widget: string
+        pattern: ["^[a-z0-9-]+$", "Только латинские буквы в нижнем регистре, цифры и дефис"]
+        hint: "Часть ссылки после /dostavka/. Например: sevastopol. Без кириллицы и пробелов."
+      - name: city
+        label: Город
+        widget: string
+        hint: "Именительный падеж: Севастополь."
+      - name: cityIn
+        label: Город в предложном падеже
+        widget: string
+        hint: "Как во фразе «доставка в Севастополе». Пишите: в Севастополе."
+      - name: heading
+        label: Заголовок на странице
+        widget: string
+      - name: lede
+        label: Вступление
+        widget: text
+        hint: "Два-три предложения под заголовком."
+      - name: deliveryTime
+        label: Срок доставки
+        widget: string
+        hint: "Например: 1–2 дня. Это главное, ради чего человек открыл страницу."
+      - name: deliveryPrice
+        label: Стоимость доставки
+        widget: string
+      - name: pickup
+        label: Самовывоз
+        widget: string
+        required: false
+        hint: "Оставьте пустым, если самовывоза нет."
+      - name: heat
+        label: Как везём в жару
+        widget: string
+        required: false
+      - name: order
+        label: Порядок в списке
+        widget: number
+        value_type: int
+        default: 50
+        hint: "Меньше число — выше в списке городов."
+      - name: faq
+        label: Вопросы и ответы
+        widget: list
+        required: false
+        label_singular: Вопрос
+        summary: "{{fields.q}}"
+        fields:
+          - { name: q, label: Вопрос, widget: string }
+          - { name: a, label: Ответ, widget: text }
+      - name: body
+        label: Текст страницы
+        widget: markdown
+        hint: "Здесь пишите то, чем этот город отличается от остальных. Одинаковые страницы поисковик считает мусором и понижает весь сайт."
+      - name: noindex
+        label: Скрыть от поисковиков
+        widget: boolean
+        required: false
+        default: false
+      - name: seoTitle
+        label: Заголовок в результатах поиска
+        widget: string
+        hint: "До 60 знаков. Обязательно с городом и словом «коллаген»."
+      - name: seoDescription
+        label: Описание в результатах поиска
+        widget: text
+        hint: "До 160 знаков. Цена и срок доставки здесь работают лучше общих слов."
+
+  - name: razbory
+    label: Разборы и сравнения
+    label_singular: Разбор
+    folder: content/razbory
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: "{{fields.address}}"
+    identifier_field: heading
+    summary: "{{heading}}"
+    fields:
+      - name: address
+        label: Адрес страницы
+        widget: string
+        pattern: ["^[a-z0-9-]+$", "Только латинские буквы в нижнем регистре, цифры и дефис"]
+        hint: "Часть ссылки после /razbor/. Например: zhele-ili-kapsuly."
+      - name: heading
+        label: Заголовок на странице
+        widget: string
+      - name: shortAnswer
+        label: Короткий ответ
+        widget: text
+        hint: "Одна-две фразы в самом верху. Именно их поисковик показывает в выдаче, и именно их прочитают, если не станут читать дальше."
+      - name: aLabel
+        label: Первый вариант
+        widget: string
+        hint: "То, с чем сравниваем. Например: Порошок."
+      - name: bLabel
+        label: Второй вариант
+        widget: string
+        hint: "Ваш вариант. Например: Желе Collagen Live."
+      - name: rows
+        label: Строки сравнения
+        widget: list
+        label_singular: Строка
+        summary: "{{fields.aspect}}"
+        fields:
+          - { name: aspect, label: Что сравниваем, widget: string }
+          - { name: a, label: Первый вариант, widget: text }
+          - { name: b, label: Второй вариант, widget: text }
+      - name: conclusion
+        label: Вывод
+        widget: text
+      - name: disclaimer
+        label: Оговорка внизу
+        widget: text
+        required: false
+        hint: "Для БАД оговорка обязательна. Сравнивайте категории товаров, но не конкретные фирмы — сравнение с названным конкурентом нарушает закон о рекламе."
+      - name: body
+        label: Текст страницы
+        widget: markdown
+      - name: noindex
+        label: Скрыть от поисковиков
+        widget: boolean
+        required: false
+        default: false
+      - name: seoTitle
+        label: Заголовок в результатах поиска
+        widget: string
+      - name: seoDescription
+        label: Описание в результатах поиска
+        widget: text
+
+  - name: instrukcii
+    label: Инструкции
+    label_singular: Инструкция
+    folder: content/instrukcii
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: "{{fields.address}}"
+    identifier_field: heading
+    summary: "{{heading}}"
+    fields:
+      - name: address
+        label: Адрес страницы
+        widget: string
+        pattern: ["^[a-z0-9-]+$", "Только латинские буквы в нижнем регистре, цифры и дефис"]
+        hint: "Часть ссылки после /kak/. Например: kak-prinimat."
+      - name: heading
+        label: Заголовок на странице
+        widget: string
+      - name: lede
+        label: Вступление
+        widget: text
+      - name: steps
+        label: Шаги
+        widget: list
+        label_singular: Шаг
+        summary: "{{fields.title}}"
+        fields:
+          - { name: title, label: Название шага, widget: string }
+          - { name: text, label: Что делать, widget: text }
+      - name: ifThen
+        label: Блок «а что если»
+        widget: list
+        required: false
+        label_singular: Случай
+        summary: "{{fields.q}}"
+        fields:
+          - { name: q, label: Что случилось, widget: string }
+          - { name: a, label: Что делать, widget: text }
+      - name: warning
+        label: Предупреждение внизу
+        widget: text
+        required: false
+      - name: body
+        label: Текст страницы
+        widget: markdown
+      - name: noindex
+        label: Скрыть от поисковиков
+        widget: boolean
+        required: false
+        default: false
+      - name: seoTitle
+        label: Заголовок в результатах поиска
+        widget: string
+      - name: seoDescription
+        label: Описание в результатах поиска
+        widget: text
+
+  - name: ceny
+    label: Прайс-листы
+    label_singular: Прайс-лист
+    folder: content/ceny
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: "{{fields.address}}"
+    identifier_field: heading
+    summary: "{{heading}}"
+    fields:
+      - name: address
+        label: Адрес страницы
+        widget: string
+        pattern: ["^[a-z0-9-]+$", "Только латинские буквы в нижнем регистре, цифры и дефис"]
+        hint: "Часть ссылки после /ceny/. Например: opt."
+      - name: heading
+        label: Заголовок на странице
+        widget: string
+      - name: lede
+        label: Вступление
+        widget: text
+      - name: updated
+        label: Цены действительны на
+        widget: datetime
+        date_format: "DD.MM.YYYY"
+        time_format: false
+        picker_utc: true
+        hint: "Дата печатается на странице. Прайс без даты покупатель считает устаревшим."
+      - name: groups
+        label: Разделы прайса
+        widget: list
+        label_singular: Раздел
+        summary: "{{fields.name}}"
+        fields:
+          - { name: name, label: Название раздела, widget: string }
+          - { name: note, label: Подпись под названием, widget: string, required: false }
+          - name: items
+            label: Позиции
+            widget: list
+            label_singular: Позиция
+            summary: "{{fields.name}} — {{fields.price}}"
+            fields:
+              - { name: name, label: Название, widget: string }
+              - { name: price, label: Цена, widget: string, hint: "Пишите так, как надо показать: 2 700 ₽, от 500 ₽, бесплатно, по расчёту." }
+              - { name: note, label: Примечание, widget: string, required: false }
+      - name: footnote
+        label: Сноска внизу
+        widget: text
+        required: false
+      - name: body
+        label: Текст страницы
+        widget: markdown
+        required: false
+      - name: noindex
+        label: Скрыть от поисковиков
+        widget: boolean
+        required: false
+        default: false
+      - name: seoTitle
+        label: Заголовок в результатах поиска
+        widget: string
+      - name: seoDescription
+        label: Описание в результатах поиска
+        widget: text

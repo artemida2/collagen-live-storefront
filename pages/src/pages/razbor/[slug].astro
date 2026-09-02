@@ -1,0 +1,76 @@
+---
+import { getCollection, render } from 'astro:content'
+import Page from '../../layouts/Page.astro'
+
+/**
+ * C-10 · one decision the buyer is stuck on, taken apart. The short answer
+ * sits above everything else because that is the shape search engines lift
+ * straight into the results page — and because a reader who only reads one
+ * sentence should still leave with the right one.
+ */
+export async function getStaticPaths() {
+  const items = await getCollection('razbory')
+  return items.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
+}
+
+const { entry } = Astro.props
+const d = entry.data
+const { Content } = await render(entry)
+---
+
+<Page
+  title={d.seoTitle}
+  description={d.seoDescription}
+  noindex={d.noindex}
+  crumbs={[{ label: d.heading }]}
+>
+  <article class="p-doc">
+    <h1 class="disp p-h1">{d.heading}</h1>
+
+    <div class="p-answer">
+      <p>{d.shortAnswer}</p>
+    </div>
+
+    <div class="p-block">
+      <div class="p-block__h">
+        <span class="mono">Сравнение</span>
+        <h2>Чем отличается</h2>
+      </div>
+
+      <div class="p-cmp">
+        <table>
+          <thead>
+            <tr>
+              <th class="mono p-cmp__aspect">Что смотрим</th>
+              <th class="mono">{d.aLabel}</th>
+              <th class="mono">{d.bLabel}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {d.rows.map((r) => (
+              <tr>
+                <th class="p-cmp__aspect">{r.aspect}</th>
+                <td>{r.a}</td>
+                <td class="is-ours">{r.b}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="p-body">
+      <Content />
+    </div>
+
+    <div class="p-block">
+      <div class="p-block__h">
+        <span class="mono">Вывод</span>
+        <h2>Что это значит для вас</h2>
+      </div>
+      <p class="p-lede">{d.conclusion}</p>
+    </div>
+
+    {d.disclaimer && <div class="p-warn">{d.disclaimer}</div>}
+  </article>
+</Page>
