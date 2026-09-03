@@ -22,11 +22,25 @@ interface Props {
   description: string
   crumbs?: Crumb[]
   noindex?: boolean
+  /**
+   * Three ways a page can be laid out, and only three. `standard` keeps the
+   * price rail beside the text; `narrow` centres a single column for pages
+   * that are read rather than shopped; `promo` drops the rail so the page's
+   * own offer is the only thing on it asking for a click.
+   */
+  layout?: 'standard' | 'narrow' | 'promo'
   /** Extra schema.org nodes this page wants in its graph. */
   schema?: unknown[]
 }
 
-const { title, description, crumbs = [], noindex = false, schema = [] } = Astro.props
+const {
+  title,
+  description,
+  crumbs = [],
+  noindex = false,
+  layout = 'standard',
+  schema = [],
+} = Astro.props
 const SITE = 'https://crimeacollagen.ru'
 const canonical = new URL(Astro.url.pathname, SITE).href
 
@@ -97,7 +111,7 @@ const graph = [
       ))}
     </nav>
 
-    <main class="p-main shell">
+    <main class={`p-main shell p-main--${layout}`}>
       <div class="p-layout">
         <slot />
 

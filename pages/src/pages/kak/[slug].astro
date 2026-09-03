@@ -8,7 +8,7 @@ import Page from '../../layouts/Page.astro'
  * that actually reach the phone are never about the happy path.
  */
 export async function getStaticPaths() {
-  const items = await getCollection('instrukcii')
+  const items = (await getCollection('instrukcii')).filter((e) => !e.data.draft)
   return items.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
 }
 

@@ -162,6 +162,12 @@ collections:
         label: Текст страницы
         widget: markdown
         hint: "Здесь пишите то, чем этот город отличается от остальных. Одинаковые страницы поисковик считает мусором и понижает весь сайт."
+      - name: draft
+        label: Скрыть страницу с сайта
+        widget: boolean
+        required: false
+        default: false
+        hint: "Страница исчезает с сайта целиком, но остаётся здесь со всем текстом. Включите, пока страница не готова."
       - name: noindex
         label: Скрыть от поисковиков
         widget: boolean
@@ -228,6 +234,12 @@ collections:
       - name: body
         label: Текст страницы
         widget: markdown
+      - name: draft
+        label: Скрыть страницу с сайта
+        widget: boolean
+        required: false
+        default: false
+        hint: "Страница исчезает с сайта целиком, но остаётся здесь со всем текстом. Включите, пока страница не готова."
       - name: noindex
         label: Скрыть от поисковиков
         widget: boolean
@@ -287,6 +299,12 @@ collections:
       - name: body
         label: Текст страницы
         widget: markdown
+      - name: draft
+        label: Скрыть страницу с сайта
+        widget: boolean
+        required: false
+        default: false
+        hint: "Страница исчезает с сайта целиком, но остаётся здесь со всем текстом. Включите, пока страница не готова."
       - name: noindex
         label: Скрыть от поисковиков
         widget: boolean
@@ -354,11 +372,200 @@ collections:
         label: Текст страницы
         widget: markdown
         required: false
+      - name: draft
+        label: Скрыть страницу с сайта
+        widget: boolean
+        required: false
+        default: false
+        hint: "Страница исчезает с сайта целиком, но остаётся здесь со всем текстом. Включите, пока страница не готова."
       - name: noindex
         label: Скрыть от поисковиков
         widget: boolean
         required: false
         default: false
+      - name: seoTitle
+        label: Заголовок в результатах поиска
+        widget: string
+      - name: seoDescription
+        label: Описание в результатах поиска
+        widget: text
+
+  # ── Свободная страница ────────────────────────────────────────────────
+  # Конструктор: страница собирается из блоков в любом порядке. Набор блоков
+  # закрытый и оформление выбирается из трёх вариантов — иначе редактор без
+  # дизайнерского образования неизбежно соберёт что-то, что стыдно показать.
+  # Чтобы убрать этот раздел у клиента, которому он не нужен, достаточно
+  # дописать сюда строку `hide: true` — данные при этом останутся на месте.
+
+  - name: stranicy
+    label: Свободные страницы
+    label_singular: Страница
+    folder: content/stranicy
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: "{{fields.address}}"
+    identifier_field: heading
+    summary: "{{heading}}"
+    fields:
+      - name: address
+        label: Адрес страницы
+        widget: string
+        pattern: ["^[a-z0-9-]+$", "Только латинские буквы в нижнем регистре, цифры и дефис"]
+        hint: "Часть ссылки после /stranica/. Например: o-nas."
+      - name: heading
+        label: Заголовок
+        widget: string
+      - name: lede
+        label: Вступление
+        widget: text
+        required: false
+      - name: layout
+        label: Оформление страницы
+        widget: select
+        default: standard
+        options:
+          - { label: "Обычное — текст и панель с ценой сбоку", value: standard }
+          - { label: "Узкое — одна колонка по центру, для длинных текстов", value: narrow }
+          - { label: "Промо — крупный заголовок, без панели, для акций", value: promo }
+        hint: "Панель с ценой уместна там, где человек может купить. На длинном тексте или на странице акции она мешает."
+      - name: blocks
+        label: Блоки страницы
+        widget: list
+        label_singular: Блок
+        types:
+          - name: text
+            label: Текст
+            summary: "Текст: {{fields.heading}}"
+            widget: object
+            fields:
+              - { name: heading, label: Подзаголовок, widget: string, required: false }
+              - name: body
+                label: Текст
+                widget: text
+                hint: "Абзацы разделяйте пустой строкой. Жирный — **вот так**, ссылка — [текст](/adres/)."
+          - name: facts
+            label: Таблица «параметр — значение»
+            summary: "Факты: {{fields.heading}}"
+            widget: object
+            fields:
+              - { name: heading, label: Подзаголовок, widget: string, required: false }
+              - name: items
+                label: Строки
+                widget: list
+                label_singular: Строка
+                summary: "{{fields.label}} — {{fields.value}}"
+                fields:
+                  - { name: label, label: Параметр, widget: string }
+                  - { name: value, label: Значение, widget: string }
+          - name: steps
+            label: Нумерованные шаги
+            summary: "Шаги: {{fields.heading}}"
+            widget: object
+            fields:
+              - { name: heading, label: Подзаголовок, widget: string, required: false }
+              - name: items
+                label: Шаги
+                widget: list
+                label_singular: Шаг
+                summary: "{{fields.title}}"
+                fields:
+                  - { name: title, label: Название шага, widget: string }
+                  - { name: text, label: Что делать, widget: text }
+          - name: qa
+            label: Вопросы и ответы
+            summary: "Вопросы: {{fields.heading}}"
+            widget: object
+            fields:
+              - { name: heading, label: Подзаголовок, widget: string, required: false }
+              - name: items
+                label: Вопросы
+                widget: list
+                label_singular: Вопрос
+                summary: "{{fields.q}}"
+                fields:
+                  - { name: q, label: Вопрос, widget: string }
+                  - { name: a, label: Ответ, widget: text }
+          - name: cards
+            label: Карточки в ряд
+            summary: "Карточки: {{fields.heading}}"
+            widget: object
+            fields:
+              - { name: heading, label: Подзаголовок, widget: string, required: false }
+              - name: items
+                label: Карточки
+                widget: list
+                label_singular: Карточка
+                summary: "{{fields.title}}"
+                fields:
+                  - { name: title, label: Заголовок, widget: string }
+                  - { name: text, label: Текст, widget: text }
+          - name: price
+            label: Мини-прайс
+            summary: "Прайс: {{fields.heading}}"
+            widget: object
+            fields:
+              - { name: heading, label: Подзаголовок, widget: string, required: false }
+              - { name: note, label: Подпись, widget: string, required: false }
+              - name: items
+                label: Позиции
+                widget: list
+                label_singular: Позиция
+                summary: "{{fields.name}} — {{fields.price}}"
+                fields:
+                  - { name: name, label: Название, widget: string }
+                  - { name: price, label: Цена, widget: string }
+                  - { name: note, label: Примечание, widget: string, required: false }
+          - name: quote
+            label: Цитата
+            summary: "Цитата: {{fields.author}}"
+            widget: object
+            fields:
+              - { name: text, label: Текст цитаты, widget: text }
+              - { name: author, label: Кто сказал, widget: string, required: false }
+          - name: image
+            label: Картинка
+            summary: "Картинка: {{fields.alt}}"
+            widget: object
+            fields:
+              - { name: src, label: Файл, widget: image }
+              - name: alt
+                label: Описание для незрячих и поисковика
+                widget: string
+                hint: "Что на картинке. Это читают вслух программы для незрячих и по этому её находит поиск."
+              - { name: caption, label: Подпись под картинкой, widget: string, required: false }
+          - name: cta
+            label: Зелёный блок с кнопкой
+            summary: "Кнопка: {{fields.buttonLabel}}"
+            widget: object
+            fields:
+              - { name: heading, label: Заголовок, widget: string }
+              - { name: text, label: Текст, widget: text, required: false }
+              - { name: buttonLabel, label: Надпись на кнопке, widget: string }
+              - name: buttonHref
+                label: Куда ведёт кнопка
+                widget: string
+                default: "/#shop"
+                hint: "Адрес на сайте, например /#shop или /ceny/price/."
+          - name: note
+            label: Сноска или предупреждение
+            summary: "Сноска"
+            widget: object
+            fields:
+              - { name: text, label: Текст, widget: text }
+      - name: draft
+        label: Скрыть страницу с сайта
+        widget: boolean
+        required: false
+        default: false
+        hint: "Страница исчезает с сайта целиком, но остаётся здесь со всем текстом. Включите, пока страница не готова."
+      - name: noindex
+        label: Скрыть от поисковиков
+        widget: boolean
+        required: false
+        default: false
+        hint: "Страница остаётся на сайте и открывается по ссылке, но не попадает в поиск."
       - name: seoTitle
         label: Заголовок в результатах поиска
         widget: string

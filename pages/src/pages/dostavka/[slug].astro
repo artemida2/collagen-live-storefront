@@ -9,7 +9,7 @@ import Page from '../../layouts/Page.astro'
  * doorways and cost the whole domain, not just the page.
  */
 export async function getStaticPaths() {
-  const towns = await getCollection('goroda')
+  const towns = (await getCollection('goroda')).filter((t) => !t.data.draft)
   return towns.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
 }
 
@@ -31,7 +31,7 @@ const faqSchema = d.faq?.length
   : []
 
 const others = (await getCollection('goroda'))
-  .filter((t) => t.id !== entry.id)
+  .filter((t) => t.id !== entry.id && !t.data.draft)
   .sort((a, b) => a.data.order - b.data.order)
 ---
 

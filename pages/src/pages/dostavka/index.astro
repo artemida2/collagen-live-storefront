@@ -3,7 +3,9 @@ import { getCollection } from 'astro:content'
 import Page from '../../layouts/Page.astro'
 
 /** The hub the town pages point back to, so none of them is an orphan. */
-const towns = (await getCollection('goroda')).sort((a, b) => a.data.order - b.data.order)
+const towns = (await getCollection('goroda'))
+  .filter((t) => !t.data.draft)
+  .sort((a, b) => a.data.order - b.data.order)
 ---
 
 <Page

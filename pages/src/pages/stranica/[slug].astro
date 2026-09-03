@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content'
+import Blocks from '../../components/Blocks.astro'
+import Page from '../../layouts/Page.astro'
+
+/**
+ * The free page. Everything above the blocks is the shell every other page
+ * uses; below the heading the editor decides the order.
+ */
+export async function getStaticPaths() {
+  const items = (await getCollection('stranicy')).filter((e) => !e.data.draft)
+  return items.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
+}
+
+const { entry } = Astro.props
+const d = entry.data
+
+/* A question block is a FAQ whether or not the editor thought of it that way,
+   and search engines want to be told so. */
+const qa = d.blocks.find((b) => b.type === 'qa')
+const faqSchema =
+  qa && qa.type === 'qa'
+    ? [
+        {
+          '@type': 'FAQPage',
+          mainEntity: qa.items.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        },
+      ]
+    : []
+---
+
+<Page
+  title={d.seoTitle}
+  description={d.seoDescription}
+  noindex={d.noindex}
+  layout={d.layout}
+  crumbs={[{ label: d.heading }]}
+  schema={faqSchema}
+>
+  <article class="p-doc">
+    <h1 class="disp p-h1">{d.heading}</h1>
+    {d.lede && <p class="p-lede">{d.lede}</p>}
+    <Blocks blocks={d.blocks} />
+  </article>
+</Page>

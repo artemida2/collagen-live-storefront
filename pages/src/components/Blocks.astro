@@ -1,0 +1,171 @@
+---
+import type { Block } from '../content.config.ts'
+import { prose } from '../lib/text.ts'
+
+/**
+ * Renders the stack the editor assembled. Every branch reuses the instruments
+ * the fixed templates already use — the same fact rows, the same steps, the
+ * same price rows — so a page built from blocks cannot come out looking like
+ * a different website from a page built from a template.
+ */
+
+interface Props {
+  blocks: Block[]
+}
+
+const { blocks } = Astro.props
+---
+
+{
+  blocks.map((b) => {
+    if (b.type === 'text') {
+      return (
+        <section class="p-block">
+          {b.heading && (
+            <div class="p-block__h">
+              <h2>{b.heading}</h2>
+            </div>
+          )}
+          <div class="p-body" set:html={prose(b.body)} />
+        </section>
+      )
+    }
+
+    if (b.type === 'facts') {
+      return (
+        <section class="p-block">
+          {b.heading && (
+            <div class="p-block__h">
+              <h2>{b.heading}</h2>
+            </div>
+          )}
+          <dl class="p-facts">
+            {b.items.map((it) => (
+              <div class="p-facts__row">
+                <dt class="mono">{it.label}</dt>
+                <dd class="p-facts__v">{it.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )
+    }
+
+    if (b.type === 'steps') {
+      return (
+        <section class="p-block">
+          {b.heading && (
+            <div class="p-block__h">
+              <h2>{b.heading}</h2>
+            </div>
+          )}
+          <div class="p-steps">
+            {b.items.map((s, i) => (
+              <div class="p-step">
+                <span class="mono p-step__n num">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    if (b.type === 'qa') {
+      return (
+        <section class="p-block">
+          {b.heading && (
+            <div class="p-block__h">
+              <h2>{b.heading}</h2>
+            </div>
+          )}
+          <div class="p-qa">
+            {b.items.map((it) => (
+              <div class="p-qa__item">
+                <p class="p-qa__q">{it.q}</p>
+                <p class="p-qa__a">{it.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    if (b.type === 'cards') {
+      return (
+        <section class="p-block">
+          {b.heading && (
+            <div class="p-block__h">
+              <h2>{b.heading}</h2>
+            </div>
+          )}
+          <div class="p-cards">
+            {b.items.map((c) => (
+              <div class="p-card">
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    if (b.type === 'price') {
+      return (
+        <section class="p-block p-price">
+          {b.heading && (
+            <div class="p-block__h">
+              <h2>{b.heading}</h2>
+            </div>
+          )}
+          {b.note && <p class="p-price__note">{b.note}</p>}
+          {b.items.map((it) => (
+            <div class="p-price__row">
+              <div class="p-price__label">
+                {it.name}
+                {it.note && <small>{it.note}</small>}
+              </div>
+              <div class="p-price__v">{it.price}</div>
+            </div>
+          ))}
+        </section>
+      )
+    }
+
+    if (b.type === 'quote') {
+      return (
+        <figure class="p-block p-quote">
+          <blockquote>{b.text}</blockquote>
+          {b.author && <figcaption class="mono">{b.author}</figcaption>}
+        </figure>
+      )
+    }
+
+    if (b.type === 'image') {
+      return (
+        <figure class="p-block p-figure">
+          <img src={b.src} alt={b.alt} loading="lazy" decoding="async" />
+          {b.caption && <figcaption class="mono">{b.caption}</figcaption>}
+        </figure>
+      )
+    }
+
+    if (b.type === 'cta') {
+      return (
+        <section class="p-block p-inline-cta on-green">
+          <h2 class="disp">{b.heading}</h2>
+          {b.text && <p class="prose">{b.text}</p>}
+          <a class="p-btn" href={b.buttonHref}>
+            {b.buttonLabel}
+          </a>
+        </section>
+      )
+    }
+
+    return <div class="p-block p-warn">{b.text}</div>
+  })
+}

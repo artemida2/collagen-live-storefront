@@ -300,3 +300,59 @@
   .p-facts__row { grid-template-columns: 1fr; gap: 4px; padding-block: 12px; }
   .p-rail__in { flex-wrap: wrap; gap: 12px; }
 }
+
+/* ── варианты оформления страницы ───────────────────────────────────── */
+
+/* Only the standard layout keeps the price rail. A page that exists to be
+   read straight through does not want a shop card following it down the
+   screen, and a page that is itself an offer does not want to compete with
+   one. */
+.p-main--narrow .p-layout,
+.p-main--promo .p-layout { grid-template-columns: minmax(0, 1fr); }
+.p-main--narrow .p-side,
+.p-main--promo .p-side { display: none; }
+
+.p-main--narrow .p-doc { max-width: 66ch; margin-inline: auto; }
+
+.p-main--promo .p-doc { max-width: 82ch; }
+.p-main--promo .p-h1 { font-size: clamp(38px, 6.6vw, 78px); max-width: 15ch; }
+.p-main--promo .p-lede { font-size: clamp(17px, 1.5vw, 22px); max-width: 52ch; }
+.p-main--promo .p-block { margin-top: clamp(52px, 6.5vw, 92px); }
+
+/* ── блоки конструктора ─────────────────────────────────────────────── */
+
+.p-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--hair);
+  background: var(--rule-soft);
+  border: var(--hair) solid var(--rule-soft);
+}
+.p-card { background: var(--paper); padding: 22px; }
+.p-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.p-card p { color: var(--ink-70); line-height: 1.6; font-size: 15px; }
+
+.p-quote { max-width: 58ch; padding-left: 26px; border-left: 2px solid var(--orange); }
+.p-quote blockquote {
+  font-family: var(--f-display);
+  font-weight: 300;
+  font-size: clamp(20px, 2.2vw, 27px);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.p-quote figcaption { margin-top: 12px; }
+
+.p-figure { max-width: 68ch; }
+.p-figure img { width: 100%; }
+.p-figure figcaption { margin-top: 10px; }
+
+.p-inline-cta {
+  background: var(--green);
+  color: var(--lume);
+  padding: clamp(28px, 3.6vw, 48px);
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  max-width: 68ch;
+}
+.p-inline-cta h2 { font-size: clamp(24px, 3vw, 36px); max-width: 18ch; }

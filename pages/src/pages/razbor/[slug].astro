@@ -9,7 +9,7 @@ import Page from '../../layouts/Page.astro'
  * sentence should still leave with the right one.
  */
 export async function getStaticPaths() {
-  const items = await getCollection('razbory')
+  const items = (await getCollection('razbory')).filter((e) => !e.data.draft)
   return items.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
 }
 

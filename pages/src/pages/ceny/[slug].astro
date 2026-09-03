@@ -8,7 +8,7 @@ import Page from '../../layouts/Page.astro'
  * whole point of putting it in the admin panel is that it stops being stale.
  */
 export async function getStaticPaths() {
-  const items = await getCollection('ceny')
+  const items = (await getCollection('ceny')).filter((e) => !e.data.draft)
   return items.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
 }
 

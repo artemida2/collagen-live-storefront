@@ -19,10 +19,17 @@ const faq = z
   .array(z.object({ q: z.string(), a: z.string() }))
   .optional()
 
+/**
+ * `draft` takes a page off the site without deleting a word of it: the build
+ * never generates the route. That is deliberately stronger than `noindex`,
+ * which leaves the page reachable by anyone holding the link — an unfinished
+ * price list should not be one shared URL away from a customer.
+ */
 const seo = {
   seoTitle: z.string(),
   seoDescription: z.string(),
   noindex: z.boolean().optional(),
+  draft: z.boolean().optional(),
 }
 
 /** A-01 · a town the distributor delivers to. */
@@ -90,4 +97,73 @@ const ceny = defineCollection({
   }),
 })
 
-export const collections = { goroda, razbory, instrukcii, ceny }
+
+/**
+ * The free page: blocks stacked in whatever order the editor wants.
+ *
+ * The set of blocks is closed on purpose. A builder that can produce any
+ * layout can produce an ugly one, and the person assembling these pages is
+ * not a designer and should not have to be. Ten blocks and three page
+ * layouts, every one of them already carrying the site's spacing and type —
+ * the freedom is in the order and the words, not in the design.
+ */
+const block = z.discriminatedUnion('type', [
+  z.object({ type: z.literal('text'), heading: z.string().optional(), body: z.string() }),
+  z.object({
+    type: z.literal('facts'),
+    heading: z.string().optional(),
+    items: z.array(z.object({ label: z.string(), value: z.string() })),
+  }),
+  z.object({
+    type: z.literal('steps'),
+    heading: z.string().optional(),
+    items: z.array(z.object({ title: z.string(), text: z.string() })),
+  }),
+  z.object({
+    type: z.literal('qa'),
+    heading: z.string().optional(),
+    items: z.array(z.object({ q: z.string(), a: z.string() })),
+  }),
+  z.object({
+    type: z.literal('cards'),
+    heading: z.string().optional(),
+    items: z.array(z.object({ title: z.string(), text: z.string() })),
+  }),
+  z.object({
+    type: z.literal('price'),
+    heading: z.string().optional(),
+    note: z.string().optional(),
+    items: z.array(z.object({ name: z.string(), price: z.string(), note: z.string().optional() })),
+  }),
+  z.object({ type: z.literal('quote'), text: z.string(), author: z.string().optional() }),
+  z.object({
+    type: z.literal('image'),
+    src: z.string(),
+    alt: z.string(),
+    caption: z.string().optional(),
+  }),
+  z.object({
+    type: z.literal('cta'),
+    heading: z.string(),
+    text: z.string().optional(),
+    buttonLabel: z.string(),
+    buttonHref: z.string(),
+  }),
+  z.object({ type: z.literal('note'), text: z.string() }),
+])
+
+export type Block = z.infer<typeof block>
+
+/** E · a page the editor assembles out of blocks rather than fills in. */
+const stranicy = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: '../content/stranicy' }),
+  schema: z.object({
+    ...seo,
+    heading: z.string(),
+    lede: z.string().optional(),
+    layout: z.enum(['standard', 'narrow', 'promo']).default('standard'),
+    blocks: z.array(block),
+  }),
+})
+
+export const collections = { goroda, razbory, instrukcii, ceny, stranicy }
