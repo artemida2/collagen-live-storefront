@@ -166,4 +166,22 @@ const stranicy = defineCollection({
   }),
 })
 
-export const collections = { goroda, razbory, instrukcii, ceny, stranicy }
+/**
+ * The article. The leanest shape that still gets a real page: a short header
+ * and then markdown, because articles are written elsewhere — by a person or
+ * by a model working from a brief — and pasted in. Anything more structured
+ * would make writing them more expensive without making them better.
+ */
+const stati = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: '../content/stati' }),
+  schema: z.object({
+    ...seo,
+    heading: z.string(),
+    lede: z.string(),
+    date: z.coerce.date(),
+    cover: z.string().optional(),
+    coverAlt: z.string().optional(),
+  }),
+})
+
+export const collections = { goroda, razbory, instrukcii, ceny, stranicy, stati }

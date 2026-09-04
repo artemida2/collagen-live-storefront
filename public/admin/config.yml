@@ -572,3 +572,75 @@ collections:
       - name: seoDescription
         label: Описание в результатах поиска
         widget: text
+
+  # ── Статьи ────────────────────────────────────────────────────────────
+  # Самый простой из шаблонов и самый дешёвый в наполнении: шапка и текст.
+  # Пачку статей удобнее заводить не здесь, а скриптом:
+  #   node scripts/split-articles.mjs файл-со-статьями.txt
+  # Скрипт режет один файл на отдельные статьи, не пропуская текст через
+  # нейросеть — на сотне статей это разница в сотни тысяч токенов.
+
+  - name: stati
+    label: Статьи
+    label_singular: Статья
+    folder: content/stati
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: "{{fields.address}}"
+    identifier_field: heading
+    summary: "{{heading}}"
+    sortable_fields: [date, heading]
+    fields:
+      - name: address
+        label: Адрес страницы
+        widget: string
+        pattern: ["^[a-z0-9-]+$", "Только латинские буквы в нижнем регистре, цифры и дефис"]
+        hint: "Часть ссылки после /stati/. Например: kak-hranit-letom."
+      - name: heading
+        label: Заголовок
+        widget: string
+      - name: lede
+        label: Вступление
+        widget: text
+        hint: "Два-три предложения под заголовком. Это не описание для поиска, а первое, что читает человек."
+      - name: date
+        label: Дата
+        widget: datetime
+        date_format: "DD.MM.YYYY"
+        time_format: false
+        picker_utc: true
+      - name: cover
+        label: Обложка
+        widget: string
+        required: false
+        hint: "Адрес картинки, например /media/glass.jpg. Оставьте пустым, если обложка не нужна."
+      - name: coverAlt
+        label: Описание обложки
+        widget: string
+        required: false
+        hint: "Что на картинке. Читают вслух программы для незрячих, по нему же картинку находит поиск."
+      - name: body
+        label: Текст статьи
+        widget: markdown
+        hint: "Подзаголовки, списки, ссылки и картинки. Не обещайте лечения — это БАД, а не лекарство."
+      - name: draft
+        label: Скрыть страницу с сайта
+        widget: boolean
+        required: false
+        default: false
+        hint: "Страница исчезает с сайта целиком, но остаётся здесь со всем текстом."
+      - name: noindex
+        label: Скрыть от поисковиков
+        widget: boolean
+        required: false
+        default: false
+      - name: seoTitle
+        label: Заголовок в результатах поиска
+        widget: string
+        hint: "До 60 знаков. Может отличаться от заголовка на странице."
+      - name: seoDescription
+        label: Описание в результатах поиска
+        widget: text
+        hint: "До 160 знаков."

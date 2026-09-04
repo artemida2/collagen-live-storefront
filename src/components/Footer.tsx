@@ -13,6 +13,7 @@ const PAGES: [string, string][] = [
   ['Порошок или желе', '/razbor/poroshok-ili-zhele/'],
   ['Как хранить летом', '/kak/kak-hranit-letom/'],
   ['Цены', '/ceny/price/'],
+  ['Статьи', '/stati/'],
 ]
 
 export default function Footer({

@@ -4,6 +4,7 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
+    "prebuild": "node -e \"require('node:fs').rmSync('node_modules/.astro',{recursive:true,force:true})\"",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview"

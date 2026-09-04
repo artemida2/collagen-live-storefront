@@ -1,0 +1,96 @@
+---
+import { getCollection, render } from 'astro:content'
+import Page from '../../layouts/Page.astro'
+
+/**
+ * One article. Laid out narrow rather than standard: a person reading eight
+ * hundred words does not want a shop card tracking down the margin beside
+ * them, and the page's own call to action waits at the end where it belongs.
+ */
+export async function getStaticPaths() {
+  const items = (await getCollection('stati')).filter((e) => !e.data.draft)
+  return items.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
+}
+
+const { entry } = Astro.props
+const d = entry.data
+const { Content } = await render(entry)
+
+const published = d.date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })
+
+/* Three of the most recent siblings, so no article is a dead end. */
+const more = (await getCollection('stati'))
+  .filter((a) => a.id !== entry.id && !a.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3)
+
+const schema = [
+  {
+    '@type': 'Article',
+    headline: d.heading,
+    description: d.seoDescription,
+    datePublished: d.date.toISOString().slice(0, 10),
+    inLanguage: 'ru-RU',
+    author: { '@id': 'https://crimeacollagen.ru/#seller' },
+    publisher: { '@id': 'https://crimeacollagen.ru/#seller' },
+    ...(d.cover ? { image: `https://crimeacollagen.ru${d.cover}` } : {}),
+  },
+]
+---
+
+<Page
+  title={d.seoTitle}
+  description={d.seoDescription}
+  noindex={d.noindex}
+  layout="narrow"
+  crumbs={[{ label: 'Статьи', href: '/stati/' }, { label: d.heading }]}
+  schema={schema}
+>
+  <article class="p-doc">
+    <p class="mono p-date">
+      <time datetime={d.date.toISOString().slice(0, 10)}>{published}</time>
+    </p>
+    <h1 class="disp p-h1">{d.heading}</h1>
+    <p class="p-lede">{d.lede}</p>
+
+    {d.cover && (
+      <figure class="p-block p-figure">
+        <img src={d.cover} alt={d.coverAlt ?? ''} width={1400} height={1000} loading="lazy" decoding="async" />
+      </figure>
+    )}
+
+    <div class="p-body p-article">
+      <Content />
+    </div>
+
+    <div class="p-block p-inline-cta on-green">
+      <h2 class="disp">Собрать курс на полтора месяца</h2>
+      <p class="prose">Пять вкусов и два сета. Доставка по всему Крыму, бесплатно от 5 400 ₽.</p>
+      <a class="p-btn" href="/#shop">Выбрать вкус</a>
+    </div>
+
+    <div class="p-warn">
+      БАД. Не является лекарственным средством. Перед применением проконсультируйтесь
+      со специалистом. Характеристики продукта приведены по данным производителя.
+    </div>
+
+    {more.length > 0 && (
+      <nav class="p-more">
+        <div class="p-block__h">
+          <span class="mono">Ещё</span>
+          <h2>Читать дальше</h2>
+        </div>
+        <div class="p-more__list">
+          {more.map((a) => (
+            <a href={`/stati/${a.id}/`}>
+              <span class="p-more__t">{a.data.heading}</span>
+              <span class="mono">
+                {a.data.date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' })}
+              </span>
+            </a>
+          ))}
+        </div>
+      </nav>
+    )}
+  </article>
+</Page>

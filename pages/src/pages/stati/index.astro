@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content'
+import Page from '../../layouts/Page.astro'
+
+const articles = (await getCollection('stati'))
+  .filter((a) => !a.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+---
+
+<Page
+  title="Статьи о коллагене — Collagen Live Крым"
+  description="Что мы знаем о живом коллагене как дистрибьютор: как принимать, как хранить, чем желе отличается от порошка и что спрашивают покупатели в Крыму."
+  layout="narrow"
+  crumbs={[{ label: 'Статьи' }]}
+>
+  <article class="p-doc">
+    <h1 class="disp p-h1">Статьи</h1>
+    <p class="p-lede">
+      Пишем о том, что видим сами: как продукт ведёт себя в жару, что спрашивают
+      покупатели и чем живой коллаген отличается от привычного порошка.
+    </p>
+
+    {articles.length === 0 ? (
+      <p class="p-warn">Пока ни одной статьи. Первая появится здесь, как только будет написана.</p>
+    ) : (
+      <div class="p-block">
+        <div class="p-more__list">
+          {articles.map((a) => (
+            <a href={`/stati/${a.id}/`}>
+              <span class="p-more__t">{a.data.heading}</span>
+              <span class="mono">
+                {a.data.date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' })}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </article>
+</Page>
