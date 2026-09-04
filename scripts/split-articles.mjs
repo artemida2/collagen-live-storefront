@@ -140,10 +140,25 @@ const known = new Set([
   ...(existsSync(OUT) ? (await readdir(OUT)).map((f) => f.replace(/\.md$/, '')) : []),
 ])
 
-const fixes = { links: 0, images: 0 }
+const fixes = { links: 0, images: 0, invisible: 0 }
+
+/**
+ * Zero-width characters and soft hyphens arrive invisibly through copy-paste
+ * and word processors. One of them landed inside the word "Collagen", which
+ * renders as Coll<shy>agen and stops matching a search for the brand — the
+ * kind of defect nobody sees by reading and nobody finds by looking.
+ * Non-breaking spaces are left alone: those are usually deliberate.
+ */
+const INVISIBLE = /[\u00ad\u200b\u200c\u200d\ufeff]/g
 const rxEscape = (v) => v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
 for (const w of written) {
+  const cleaned = w.body.replace(INVISIBLE, '')
+  if (cleaned !== w.body) {
+    fixes.invisible += (w.body.match(INVISIBLE) || []).length
+    w.body = cleaned
+  }
+
   w.body = w.body.replace(/\]\(\/([a-z0-9-]+)\/\)/g, (whole, slug) => {
     if (!known.has(slug)) return whole
     fixes.links += 1
@@ -180,6 +195,7 @@ if (dry) {
   console.log(`Разбор прошёл. Статей: ${written.length}. Ничего не записано (режим --dry).`)
   if (fixes.links) console.log(`Будет исправлено ссылок на соседние статьи: ${fixes.links}`)
   if (fixes.images) console.log(`Будет убрано повторов обложки внутри текста: ${fixes.images}`)
+  if (fixes.invisible) console.log(`Будет убрано невидимых символов: ${fixes.invisible}`)
   console.log('')
   for (const w of written) console.log('  ' + w.file.padEnd(38) + w.heading)
   process.exit(0)
@@ -193,6 +209,7 @@ for (const w of written) await writeFile(join(OUT, w.file), w.text)
 console.log(`Записано статей: ${written.length} → content/stati/`)
 if (fixes.links) console.log(`Исправлено ссылок на соседние статьи: ${fixes.links}`)
 if (fixes.images) console.log(`Убрано повторов обложки внутри текста: ${fixes.images}`)
+if (fixes.invisible) console.log(`Убрано невидимых символов: ${fixes.invisible}`)
 console.log('')
 for (const w of written) {
   console.log(`  ${existed.has(w.file) ? 'обновлена' : 'создана  '}  /stati/${w.file.replace('.md', '')}/  ${w.heading}`)
