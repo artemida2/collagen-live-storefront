@@ -119,7 +119,45 @@ for (const [i, chunk] of chunks.entries()) {
     .filter((l) => l !== null)
     .join('\n')
 
-  written.push({ file: `${meta.address}.md`, heading: meta.heading, text: front + body + '\n' })
+  written.push({ file: `${meta.address}.md`, heading: meta.heading, cover: meta.cover, body, front })
+}
+
+/**
+ * Two corrections applied to every batch, because both are mistakes a writer
+ * makes from outside the site and cannot see from there.
+ *
+ * A link to a sibling article gets written as /slug/ — that is where the
+ * writer imagines it lives. Articles are served from /stati/<slug>/, so every
+ * one of those links would 404. Rewritten here, and only when a single path
+ * segment names an article we actually have: /dostavka/ and /#shop are left
+ * alone because they are not one of ours.
+ *
+ * And an article whose cover photograph appears again inside its own body
+ * shows the same picture twice on one short page. The second one goes.
+ */
+const known = new Set([
+  ...written.map((w) => w.file.replace(/\.md$/, '')),
+  ...(existsSync(OUT) ? (await readdir(OUT)).map((f) => f.replace(/\.md$/, '')) : []),
+])
+
+const fixes = { links: 0, images: 0 }
+const rxEscape = (v) => v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+for (const w of written) {
+  w.body = w.body.replace(/\]\(\/([a-z0-9-]+)\/\)/g, (whole, slug) => {
+    if (!known.has(slug)) return whole
+    fixes.links += 1
+    return `](/stati/${slug}/)`
+  })
+
+  if (w.cover) {
+    const dup = new RegExp(`^!\\[[^\\]]*\\]\\(${rxEscape(w.cover)}\\)\\s*$`, 'gm')
+    const before = w.body
+    w.body = w.body.replace(dup, '').replace(/\n{3,}/g, '\n\n')
+    if (w.body !== before) fixes.images += 1
+  }
+
+  w.text = w.front + w.body.trim() + '\n'
 }
 
 if (problems.length) {
@@ -139,7 +177,10 @@ for (const w of written) {
 }
 
 if (dry) {
-  console.log(`Разбор прошёл. Статей: ${written.length}. Ничего не записано (режим --dry).\n`)
+  console.log(`Разбор прошёл. Статей: ${written.length}. Ничего не записано (режим --dry).`)
+  if (fixes.links) console.log(`Будет исправлено ссылок на соседние статьи: ${fixes.links}`)
+  if (fixes.images) console.log(`Будет убрано повторов обложки внутри текста: ${fixes.images}`)
+  console.log('')
   for (const w of written) console.log('  ' + w.file.padEnd(38) + w.heading)
   process.exit(0)
 }
@@ -149,7 +190,10 @@ const existed = existsSync(OUT) ? new Set(await readdir(OUT)) : new Set()
 
 for (const w of written) await writeFile(join(OUT, w.file), w.text)
 
-console.log(`Записано статей: ${written.length} → content/stati/\n`)
+console.log(`Записано статей: ${written.length} → content/stati/`)
+if (fixes.links) console.log(`Исправлено ссылок на соседние статьи: ${fixes.links}`)
+if (fixes.images) console.log(`Убрано повторов обложки внутри текста: ${fixes.images}`)
+console.log('')
 for (const w of written) {
   console.log(`  ${existed.has(w.file) ? 'обновлена' : 'создана  '}  /stati/${w.file.replace('.md', '')}/  ${w.heading}`)
 }
