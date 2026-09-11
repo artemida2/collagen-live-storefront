@@ -127,7 +127,7 @@ export default function ProductModal({
               )}
             </div>
 
-            <div className="pm__info">
+            <div className="pm__info" data-lenis-prevent>
               <div className="pm__head">
                 <span className="mono">
                   {product.meta} · {product.weight}
