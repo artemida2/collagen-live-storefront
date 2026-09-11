@@ -74,7 +74,7 @@ export default function LegalModal({
               ))}
             </nav>
 
-            <div className="lg__body">
+            <div className="lg__body" data-lenis-prevent>
               <p className="mono lg__short">{doc.short}</p>
 
               {doc.blocks.map((b, i) => (
