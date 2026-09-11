@@ -71,6 +71,7 @@ export default function CartDrawer({
           />
           <motion.aside
             className="drawer__panel"
+            data-lenis-prevent
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
