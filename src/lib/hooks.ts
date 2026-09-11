@@ -37,6 +37,7 @@ export function useReducedMotion() {
   }, [])
   return reduced
 }
+let activeLenis: Lenis | null = null
 
 export function useLenis(enabled: boolean) {
   const ref = useRef<Lenis | null>(null)
@@ -44,10 +45,12 @@ export function useLenis(enabled: boolean) {
     if (!enabled) return
     const lenis = new Lenis({ duration: 1.1, wheelMultiplier: 0.95, autoRaf: true })
     ref.current = lenis
+    activeLenis = lenis
     if (import.meta.env.DEV) (window as unknown as { __lenis?: Lenis }).__lenis = lenis
     return () => {
       lenis.destroy()
       ref.current = null
+      activeLenis = null
     }
   }, [enabled])
   return ref
@@ -71,11 +74,13 @@ export function useScrollLock(active: boolean) {
     if (!active) return
     locks += 1
     document.documentElement.classList.add('is-locked')
+    activeLenis?.stop()
     return () => {
       locks -= 1
       if (locks <= 0) {
         locks = 0
         document.documentElement.classList.remove('is-locked')
+        activeLenis?.start()
       }
     }
   }, [active])
